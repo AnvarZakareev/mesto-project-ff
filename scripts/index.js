@@ -1,6 +1,6 @@
 
 // @todo: Темплейт карточки
-
+// 1
 let placesList = document.querySelector('.places__list');
 
 function addCard (card, callback) {
