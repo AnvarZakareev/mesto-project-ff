@@ -8,17 +8,8 @@ function createCard (card, callback) {
   const cardElement = cardTemplate.querySelector('.places__item').cloneNode(true);
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__title').textContent = card.name;
-  // То есть эта функция должна только возвращать один экземпляр карточки,
-  // но не добавлять его в общий список.
-  placesList.append(cardElement);
-  const cardDelBtn = document.querySelectorAll('.card__delete-button');
-  // В функции createCard функция удаления карточки  должна быть добавлена 
-  // как обработчик на одну кнопку cardDeleteButton, без вызова цикла forEach
-  cardDelBtn.forEach(function(elem) {
-    elem.addEventListener('click', callback)
-    })
-  // Функция createCard должна получать элемент карточки cardElement
-  // из клонированного шаблона карточки и возвращать этот элемент в инструкции return.
+  const cardDeleteButton = cardElement.querySelector('.card__delete-button');
+  cardDeleteButton.addEventListener("click", callback);
   return cardElement;
 };
 
@@ -27,16 +18,10 @@ function deleteCard(evt) {
     cardElement.remove();
 }
 
-// Добавляться в общий список методом append элемент карточки должен в методе forEach,
-// вызываемом вне функции createCard.
 initialCards.forEach((cardData) => {
     const cardElement = createCard(cardData, deleteCard);
    placesList.append(cardElement);
 });
-
-// initialCards.forEach(function (item) { 
-//   addCard(item, deleteCard);
-// });
 
 // @todo: DOM узлы
 
