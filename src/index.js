@@ -1,4 +1,7 @@
+import './styles/index.css';
+
 console.log('Hello, World!')
+
 const numbers = [2, 3, 5];
 
 // Стрелочная функция. Не запнётся ли на ней Internet Explorer?
