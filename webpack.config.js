@@ -13,6 +13,7 @@ module.exports = {
     publicPath: '',
   },
   mode: 'development',
+  devtool: 'source-map',
   devServer: {
     static: path.resolve(__dirname, './dist'),
     open: true,
@@ -47,7 +48,6 @@ module.exports = {
       template: './src/index.html'
     }),
     new CleanWebpackPlugin(),
-    // new MiniCssExtractPlugin(),
-
-  ]
+    new MiniCssExtractPlugin(),
+  ],
 }
