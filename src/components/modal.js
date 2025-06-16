@@ -12,7 +12,6 @@ function openModal (popup) {
 };
 
 function closeModal (evt) {
-  // console.log(evt)
   const x = evt.target.parentNode.parentNode
   x.classList.remove('popup_is-opened');
   x.classList.add('popup_is-animated');
