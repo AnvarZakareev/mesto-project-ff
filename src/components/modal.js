@@ -6,16 +6,14 @@
 
 export {openModal, closeModal};
 
-function openModal (popup, funcClosePopup) {
+function openModal (popup) {
   popup.classList.remove('popup_is-animated');
   popup.classList.add('popup_is-opened');
-  // const popup_close = document.querySelector('.popup__close');
-  // popup_close.addEventListener("click", funcClosePopup);
 };
 
 function closeModal (evt) {
+  // console.log(evt)
   const x = evt.target.parentNode.parentNode
-  // console.log(x)
   x.classList.remove('popup_is-opened');
   x.classList.add('popup_is-animated');
 }

@@ -35,18 +35,29 @@ const popup_edit = document.querySelector('.popup_type_edit');
 const popup_new = document.querySelector('.popup_type_new-card');
 const popup_image = document.querySelector('.popup_type_image');
 // закрытие окон попапов
-const popup_close = document.querySelector('.popup__close');
+const popup_close = document.querySelectorAll('.popup__close');
 
 // Загрузка массива карт из cards.js
 initialCards.forEach((cardData) => {
-  const cardElement = createCard(cardData, deleteCard, () => openModal(popup_image), closeModal);
-  popup_close.addEventListener('click', closeModal)
+  
+  const cardElement = createCard(cardData, deleteCard)//, () => openModal(popup_image), closeModal);
+  // card__image.addEventListener('click', () => openModal(popup_edit))
+  // console.log(card__image)
   placesList.append(cardElement);
 });
 
-// profile__edit.addEventListener('click', () => openModal(popup_edit))
-profile__add.addEventListener('click', () => openModal(popup_new), () => closeModal(popup_new))
-// popup_close.addEventListener('click', () => closeModal(popup_close))
+profile__edit.addEventListener('click', () => openModal(popup_edit))
+profile__add.addEventListener('click', () => openModal(popup_new))
+console.log(card__image)
+// card__image.forEach((openPupopInCard) => {
+  // console.log(openPupopInCard)
+  // openPupopInCard.addEventListener('click', openModal)
+// })
+popup_close.forEach((closePopupButton) => {
+  // console.log(closeButton)
+  closePopupButton.addEventListener('click', closeModal)
+})
+// popup_close.addEventListener('click', closeModal)
 // popup_close.addEventListener('click', closeModal)
 
 // card__image.addEventListener('click', () => console.log('hi'))
