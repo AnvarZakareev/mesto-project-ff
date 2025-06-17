@@ -17,7 +17,8 @@
 // объявление функции — в card.js. Используйте директивы
 // export/import.
 
-
+// Экспорт
+export {handleImageClick};
 // Импорт
 import './pages/index.css';
 import {initialCards} from './scripts/cards.js';
@@ -34,20 +35,24 @@ const popup_edit = document.querySelector('.popup_type_edit');
 const popup_new = document.querySelector('.popup_type_new-card');
 const popup_image = document.querySelector('.popup_type_image');
 
+
 // Загрузка массива карт из cards.js
 initialCards.forEach((cardData) => {
-  const cardElement = createCard(cardData, deleteCard)
+  const cardElement = createCard(cardData, deleteCard, handleImageClick)
   placesList.append(cardElement);
 });
 
 // открытие окон попапов
-const card__image = document.querySelectorAll('.card__image');
-card__image.forEach((cardImage) => {
-  cardImage.addEventListener('click', () => openModal(popup_image))
-})
 profile__edit.addEventListener('click', () => openModal(popup_edit))
 profile__add.addEventListener('click', () => openModal(popup_new))
 
+function handleImageClick(link, name) {
+  const popupImage = document.querySelector('.popup__image');
+  popupImage.src = link;
+  const popupName = document.querySelector('.popup__caption')
+  popupName.textContent = name;
+  openModal(popup_image)
+}
 
 // закрытие окон попапов
 const popup_close = document.querySelectorAll('.popup__close');
