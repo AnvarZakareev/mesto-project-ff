@@ -1,6 +1,6 @@
 //В файле index.js должны остаться:
 // 1 объявления и инициализация глобальных констант и
-// переменных с DOM-элементами страницы,
+// переменных с DOM-элементами страницы;
 // 2 обработчики событий (при открытии и закрытии попапов;
 // при отправке форм; обработчик, открывающий попап при
 // клике по изображению карточки);
@@ -53,9 +53,3 @@ function handleImageClick(link, name) {
   popupName.textContent = name;
   openModal(popup_image)
 }
-
-// закрытие окон попапов
-const popup_close = document.querySelectorAll('.popup__close');
-popup_close.forEach((closePopupButton) => {
-  closePopupButton.addEventListener('click', closeModal)
-})
