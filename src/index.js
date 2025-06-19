@@ -17,16 +17,23 @@
 // объявление функции — в card.js. Используйте директивы
 // export/import.
 
+
 // Экспорт
+
 export {handleImageClick};
+
+
 // Импорт
+
 import './pages/index.css';
 import {initialCards} from './scripts/cards.js';
 import {createCard, deleteCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js'
 
+
 // Oбъявления и инициализация глобальных констант и
 // переменных с DOM-элементами страницы
+
 const placesList = document.querySelector('.places__list');
 const profile__edit = document.querySelector('.profile__edit-button');
 const profile__add = document.querySelector('.profile__add-button');
@@ -34,13 +41,17 @@ const popup_edit = document.querySelector('.popup_type_edit');
 const popup_new = document.querySelector('.popup_type_new-card');
 const popup_image = document.querySelector('.popup_type_image');
 
+
 // Загрузка массива карт из cards.js
+
 initialCards.forEach((cardData) => {
   const cardElement = createCard(cardData, deleteCard, handleImageClick)
   placesList.append(cardElement);
 });
 
+
 // открытие окон попапов
+
 profile__edit.addEventListener('click', () => openModal(popup_edit))
 profile__add.addEventListener('click', () => openModal(popup_new))
 function handleImageClick(link, name) {
@@ -51,13 +62,15 @@ function handleImageClick(link, name) {
   openModal(popup_image)
 }
 
+
 // Редактирование имени и информации о себе
+
 let profile__title = document.querySelector('.profile__title')
-let profile__description = document.querySelector('.profile__description').textContent
+let profile__description = document.querySelector('.profile__description')
 let popup__input_type_name = document.querySelector('.popup__input_type_name')
 let popup__input_type_description = document.querySelector('.popup__input_type_description')
 popup__input_type_name.placeholder = profile__title.textContent;
-popup__input_type_description.placeholder = profile__description;
+popup__input_type_description.placeholder = profile__description.textContent;
 
 const formElement = document.querySelector('.popup__form')
 const nameInput = formElement.querySelector('.popup__input_type_name');
@@ -74,3 +87,28 @@ function handleFormSubmit(evt) {
 }
 
 formElement.addEventListener('submit', handleFormSubmit);
+
+
+// Добавление карточки
+
+const popupAddNewCard = document.querySelector('.popup_type_new-card')
+
+function addCard(evt) {
+  evt.preventDefault();
+  const popupForm = document.forms.newplace;
+  const name = popupForm.elements.placename;
+  const link = popupForm.elements.link;
+
+  const newCard = {};
+  newCard.name = name.value;
+  newCard.link = link.value;
+
+  const cardElement = createCard(newCard, deleteCard, handleImageClick)
+  placesList.prepend(cardElement)
+  popupForm.reset();
+  closeModal(popupAddNewCard);
+}
+
+popupAddNewCard.addEventListener('submit', addCard);
+
+
