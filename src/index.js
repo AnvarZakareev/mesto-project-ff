@@ -25,7 +25,6 @@ import {initialCards} from './scripts/cards.js';
 import {createCard, deleteCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js'
 
-
 // Oбъявления и инициализация глобальных констант и
 // переменных с DOM-элементами страницы
 const placesList = document.querySelector('.places__list');
@@ -34,7 +33,6 @@ const profile__add = document.querySelector('.profile__add-button');
 const popup_edit = document.querySelector('.popup_type_edit');
 const popup_new = document.querySelector('.popup_type_new-card');
 const popup_image = document.querySelector('.popup_type_image');
-
 
 // Загрузка массива карт из cards.js
 initialCards.forEach((cardData) => {
@@ -45,7 +43,6 @@ initialCards.forEach((cardData) => {
 // открытие окон попапов
 profile__edit.addEventListener('click', () => openModal(popup_edit))
 profile__add.addEventListener('click', () => openModal(popup_new))
-
 function handleImageClick(link, name) {
   const popupImage = document.querySelector('.popup__image');
   popupImage.src = link;
@@ -53,3 +50,27 @@ function handleImageClick(link, name) {
   popupName.textContent = name;
   openModal(popup_image)
 }
+
+// Редактирование имени и информации о себе
+let profile__title = document.querySelector('.profile__title')
+let profile__description = document.querySelector('.profile__description').textContent
+let popup__input_type_name = document.querySelector('.popup__input_type_name')
+let popup__input_type_description = document.querySelector('.popup__input_type_description')
+popup__input_type_name.placeholder = profile__title.textContent;
+popup__input_type_description.placeholder = profile__description;
+
+const formElement = document.querySelector('.popup__form')
+const nameInput = formElement.querySelector('.popup__input_type_name');
+const jobInput = formElement.querySelector('.popup__input_type_description');
+function handleFormSubmit(evt) {
+    evt.preventDefault();
+    const x = nameInput.value;
+    const y = jobInput.value;
+    let popup__input_type_name = document.querySelector('.profile__title');
+    let popup__input_type_description = document.querySelector('.profile__description');
+    popup__input_type_name.textContent = x;
+    popup__input_type_description.textContent = y;
+    closeModal(formElement.parentNode.parentNode);
+}
+
+formElement.addEventListener('submit', handleFormSubmit);

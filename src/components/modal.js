@@ -15,29 +15,25 @@ function openModal (popup) {
 };
 
 function closeModal (popup) {
-  // const x = evt.target.parentNode.parentNode
   popup.classList.remove('popup_is-opened');
   popup.classList.add('popup_is-animated');
   document.removeEventListener('click', closePopupOverlay);
   document.removeEventListener('keydown', closePopupEsc);
 }
 
+//Закрытие попапа кликом на оверлей
 function closePopupOverlay(evt) {
-  const modalOpen = document.querySelector(".popup_is-opened"); 
+  const popupOpen = document.querySelector(".popup_is-opened"); 
   if (evt.target.classList.contains("popup__close") || evt.target.classList.contains("popup"))
     { 
-    closeModal(modalOpen); 
+    closeModal(popupOpen); 
     }
-  // if (evt.key === 'Escape') {
-  //   const popup = document.querySelector('.popup_is-opened');
-  //   closeModal(popup);
-  // }
 }
 
+// Закрытие попапа нажатием на Esc
 function closePopupEsc(evt) {
-  const popup = document.querySelector('.popup_is-opened');
+  const popupOpen = document.querySelector('.popup_is-opened');
   if (evt.key === 'Escape') {
-    // console.log(popup)
-    closeModal(popup);
+    closeModal(popupOpen);
   }
 }
