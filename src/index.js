@@ -27,7 +27,7 @@ export {handleImageClick};
 
 import './pages/index.css';
 import {initialCards} from './scripts/cards.js';
-import {createCard, deleteCard} from './components/card.js';
+import {createCard, deleteCard, likeCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js'
 
 
@@ -45,7 +45,7 @@ const popup_image = document.querySelector('.popup_type_image');
 // Загрузка массива карт из cards.js
 
 initialCards.forEach((cardData) => {
-  const cardElement = createCard(cardData, deleteCard, handleImageClick)
+  const cardElement = createCard(cardData, deleteCard, handleImageClick, likeCard)
   placesList.append(cardElement);
 });
 
@@ -103,7 +103,7 @@ function addCard(evt) {
   newCard.name = name.value;
   newCard.link = link.value;
 
-  const cardElement = createCard(newCard, deleteCard, handleImageClick)
+  const cardElement = createCard(newCard, deleteCard, handleImageClick, likeCard)
   placesList.prepend(cardElement)
   popupForm.reset();
   closeModal(popupAddNewCard);
