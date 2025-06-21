@@ -1,14 +1,17 @@
 export {createCard, deleteCard, likeCard};
 
-//Темплейт карточки
+const cardTemplate = document.querySelector('#card-template')
 
 // Функция, которая принимает в аргументах данные одной карточки
 // и функцию-колбэк для удаления, а возвращает подготовленный к
 // выводу элемент карточки
-function createCard (card, delateCard, handleImageClick, likeCard) 
+
+function createCard (card, delateCard, handleImageClick, likeCard, getCardTemplate)
 {
-  const cardTemplate = document.querySelector('#card-template').content;
-  const cardElement = cardTemplate.querySelector('.places__item').cloneNode(true);
+  const cardTemplateContent = cardTemplate.content;
+  const cardElement = cardTemplateContent.querySelector('.places__item').cloneNode(true);
+  // Функционал клонирования шаблона карточки рекомендуется вынести в отдельную функцию getCardTemplate,
+  // чтобы сделать код более декларативным и переиспользуемым.
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__image').alt = card.alt;
   cardElement.querySelector('.card__title').textContent = card.name;
