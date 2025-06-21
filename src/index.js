@@ -32,8 +32,12 @@ const placesList = document.querySelector('.places__list');
 const profileEdit = document.querySelector('.profile__edit-button');
 const profileAdd = document.querySelector('.profile__add-button');
 const popupEdit = document.querySelector('.popup_type_edit');
-const popupNew = document.querySelector('.popup_type_new-card');
+const formAddCard = document.querySelector('.popup_type_new-card');
 const popupImage = document.querySelector('.popup_type_image');
+const profileTitle = document.querySelector('.profile__title');
+const profileDescription = document.querySelector('.profile__description');
+const popupName = document.querySelector('.popup__input_type_name');
+const popupDescription = document.querySelector('.popup__input_type_description');
 
 
 // Загрузка массива карт из cards.js
@@ -46,11 +50,16 @@ initialCards.forEach((cardData) => {
 
 // открытие окон попапов
 
-profileEdit.addEventListener('click', () => openModal(popupEdit));
-profileAdd.addEventListener('click', () => openModal(popupNew));
-function handleImageClick(link, name) {
+profileEdit.addEventListener('click', () => {
+  popupName.placeholder = profileTitle.textContent;
+  popupDescription.placeholder = profileDescription.textContent;
+  openModal(popupEdit)
+});
+profileAdd.addEventListener('click', () => openModal(formAddCard));
+function handleImageClick(link, alt, name) {
   const image = document.querySelector('.popup__image');
   image.src = link;
+  image.alt = alt;
   const caption = document.querySelector('.popup__caption');
   caption.textContent = name;
   openModal(popupImage);
@@ -59,22 +68,15 @@ function handleImageClick(link, name) {
 
 // Редактирование имени и информации о себе
 
-let profileTitle = document.querySelector('.profile__title');
-let profileDescription = document.querySelector('.profile__description');
-let popupName = document.querySelector('.popup__input_type_name');
-let popupDescription = document.querySelector('.popup__input_type_description');
-popupName.placeholder = profileTitle.textContent;
-popupDescription.placeholder = profileDescription.textContent;
-
-const formElement = document.querySelector('.popup__form');
-function handleFormSubmit(evt) {
+const formEdiProfile = document.querySelector('[name="edit-profile"]');
+function submitFormEdiProfile(evt) {
     evt.preventDefault();
     profileTitle.textContent = popupName.value;
     profileDescription.textContent = popupDescription.value;
-    closeModal(formElement.parentNode.parentNode);
+    closeModal(formEdiProfile.parentNode.parentNode);
 }
 
-formElement.addEventListener('submit', handleFormSubmit);
+formEdiProfile.addEventListener('submit', submitFormEdiProfile);
 
 
 // Добавление карточки
@@ -90,9 +92,9 @@ function addCard(evt) {
   const cardElement = createCard(newCard, deleteCard, handleImageClick, likeCard);
   placesList.prepend(cardElement);
   popupForm.reset();
-  closeModal(popupNew);
+  closeModal(formAddCard);
 }
 
-popupNew.addEventListener('submit', addCard);
+formAddCard.addEventListener('submit', addCard);
 
 

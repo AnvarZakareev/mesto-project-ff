@@ -10,12 +10,13 @@ function createCard (card, delateCard, handleImageClick, likeCard)
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.places__item').cloneNode(true);
   cardElement.querySelector('.card__image').src = card.link;
+  cardElement.querySelector('.card__image').alt = card.alt;
   cardElement.querySelector('.card__title').textContent = card.name;
   const cardDeleteButton = cardElement.querySelector('.card__delete-button');
   cardDeleteButton.addEventListener("click", delateCard);
   const cardImage = cardElement.querySelector('.card__image');
   cardImage.addEventListener("click", () => {
-    handleImageClick(card.link, card.name)
+    handleImageClick(card.link, card.alt, card.name)
     });
   const likeButton = cardElement.querySelector('.card__like-button');
   likeButton.addEventListener("click", () => {
