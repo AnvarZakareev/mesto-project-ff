@@ -17,12 +17,6 @@
 // объявление функции — в card.js. Используйте директивы
 // export/import.
 
-
-// Экспорт
-
-export {handleImageClick};
-
-
 // Импорт
 
 import './pages/index.css';

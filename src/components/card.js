@@ -1,4 +1,3 @@
-import {handleImageClick} from '../index.js';
 export {createCard, deleteCard, likeCard};
 
 //Темплейт карточки
