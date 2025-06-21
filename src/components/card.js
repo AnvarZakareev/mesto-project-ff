@@ -19,7 +19,6 @@ function createCard (card, delateCard, handleImageClick, likeCard)
     handleImageClick(card.link, card.name)
     });
   const likeButton = cardElement.querySelector('.card__like-button');
-  console.log(likeButton);
   likeButton.addEventListener("click", () => {
     likeCard(likeButton);
     });

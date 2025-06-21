@@ -22,7 +22,7 @@ function closeModal (popup) {
 
 //Закрытие попапа кликом на оверлей
 function closePopupOverlay(evt) {
-  const popupOpen = document.querySelector(".popup_is-opened"); 
+  const popupOpen = document.querySelector('.popup_is-opened'); 
   if (evt.target.classList.contains("popup__close") || evt.target.classList.contains("popup")) 
     { 
     closeModal(popupOpen); 
