@@ -51,8 +51,8 @@ initialCards.forEach((cardData) => {
 // открытие окон попапов
 
 profileEdit.addEventListener('click', () => {
-  popupName.placeholder = profileTitle.textContent;
-  popupDescription.placeholder = profileDescription.textContent;
+  popupName.value = profileTitle.textContent;
+  popupDescription.value = profileDescription.textContent;
   openModal(popupEdit)
 });
 profileAdd.addEventListener('click', () => openModal(formAddCard));
