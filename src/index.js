@@ -98,3 +98,38 @@ function addCard(evt) {
 formAddCard.addEventListener('submit', addCard);
 
 
+// Валидация 
+
+const formElement = document.querySelector('.popup__form');
+const formInput = formElement.querySelector('.popup__input');
+const formError = formElement.querySelector(`.${formInput.id}-error`);
+
+// Функция, которая добавляет класс с ошибкой
+const showInputError = (element, errorMessage) => {
+  element.classList.add('popup__input_type_error');
+  formError.textContent = errorMessage;
+  // formError.classList.add('popup__input-error_active');
+  // formError.classList.remove('form__input-error');
+};
+
+// Функция, которая удаляет класс с ошибкой
+const hideInputError = (element) => {
+  element.classList.remove('popup__input_type_error');
+  formError.textContent = '';
+  // formError.classList.remove('popup__input-error_active');
+  // formError.classList.add('form__input-error');
+};
+
+// Функция, которая проверяет валидность поля
+const isValid = () => {
+  if (!formInput.validity.valid) {
+    // Если поле не проходит валидацию, покажем ошибку
+    showInputError(formInput, formInput.validationMessage);
+  } else {
+    // Если проходит, скроем
+    hideInputError(formInput);
+  }
+};
+
+// Вызовем функцию isValid на каждый ввод символа
+formInput.addEventListener('input', isValid); 

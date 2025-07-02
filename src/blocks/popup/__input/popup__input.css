@@ -20,3 +20,15 @@
     line-height: 15px;
   }
 }
+
+.popup__input_type_error {
+  border-bottom: red solid 1px;
+}
+
+.form__input-error {
+  display: none;
+}
+
+.popup__input-error_active {
+  color: blueviolet;
+}
