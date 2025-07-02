@@ -75,7 +75,11 @@
         <input 
           type="text"
           name="description" 
+<<<<<<< HEAD
 >>>>>>> 98dc585 (2321020725)
+=======
+          id="description-input"
+>>>>>>> d9e4fc3 (002903072025)
           class="popup__input popup__input_type_description" 
           placeholder="Занятие" 
           minlength="2"
@@ -88,7 +92,11 @@
 =======
           pattern="^[a-zA-Z]+$"
           required>
+<<<<<<< HEAD
 >>>>>>> 98dc585 (2321020725)
+=======
+        <span class="description-input-error form__input-error"></span> 
+>>>>>>> d9e4fc3 (002903072025)
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -97,6 +105,7 @@
     <div class="popup__content">
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Новое место</h3>
+<<<<<<< HEAD
       <form class="popup__form" name="newplace"
       novalidate>
         <input
@@ -119,6 +128,28 @@
         placeholder="Ссылка на картинку"
         required>
         <span class="link-input-error popup__input-error"></span>
+=======
+      <form class="popup__form" name="newplace">
+        <input 
+          type="text" 
+          name="placename" 
+          id="placename-input"
+          class="popup__input popup__input_type_card-name" 
+          placeholder="Название" 
+          pattern="^[a-zA-Z]+$"
+          minlength="2"
+          maxlength="30"
+          required>
+        <span class="placename-input-error form__input-error"></span> 
+        <input 
+          type="url" 
+          name="link" 
+          id="link-input"
+          class="popup__input popup__input_type_url" 
+          placeholder="Ссылка на картинку" 
+          required>
+        <span class="link-input-error form__input-error"></span> 
+>>>>>>> d9e4fc3 (002903072025)
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
