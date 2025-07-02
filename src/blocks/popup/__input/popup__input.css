@@ -21,6 +21,7 @@
   }
 }
 
+<<<<<<< HEAD
 .popup__input:invalid {
   border-bottom: 1px solid rgb(255, 0, 0);
 }
@@ -32,4 +33,16 @@
 
 .popup__input-error_active {
   color: red;
+=======
+.popup__input_type_error {
+  border-bottom: red solid 1px;
+}
+
+.form__input-error {
+  display: none;
+}
+
+.popup__input-error_active {
+  color: blueviolet;
+>>>>>>> 98dc585 (2321020725)
 }
