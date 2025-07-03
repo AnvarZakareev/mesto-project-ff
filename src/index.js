@@ -179,6 +179,7 @@ const isValid = (formElement, inputElement) => {
     hideInputError(formElement, inputElement);
   }
 }; 
+
 // Вызовем функцию isValid на каждый ввод символа
 // formInput.addEventListener('input', isValid(formElement, formInput)); 
 
@@ -191,6 +192,8 @@ const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   // Найдём в текущей форме кнопку отправки
   const buttonElement = formElement.querySelector('.popup__button');
+    buttonElement.disabled = true;
+    buttonElement.classList.add('popup__button_disabled');
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {
     // каждому полю добавим обработчик события input
