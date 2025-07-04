@@ -55,6 +55,7 @@
           class="popup__input popup__input_type_name" 
           placeholder="Имя" 
 <<<<<<< HEAD
+<<<<<<< HEAD
           minlength="2"
           maxlength="40"
           pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
@@ -67,10 +68,13 @@
           id="description-input"
 =======
           pattern="^[a-zA-Z]+$"
+=======
+          pattern="^[0-9a-Z\sёЁ\-]+$"
+>>>>>>> 60ec577 (2353040725)
           minlength="2"
           maxlength="40"
+          data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
           required>
-        <!-- <span class="name-input-error form__input-error">"Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"</span>  -->
         <span class="name-input-error form__input-error"></span> 
         <input 
           type="text"
@@ -85,12 +89,17 @@
           minlength="2"
           maxlength="200"
 <<<<<<< HEAD
+<<<<<<< HEAD
           pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
           data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
           required>
         <span class="description-input-error popup__input-error"></span>
 =======
           pattern="^[a-zA-Z]+$"
+=======
+          pattern="^[0-9a-Z\sёЁ\-]+$"
+          data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+>>>>>>> 60ec577 (2353040725)
           required>
 <<<<<<< HEAD
 >>>>>>> 98dc585 (2321020725)
@@ -136,9 +145,10 @@
           id="placename-input"
           class="popup__input popup__input_type_card-name" 
           placeholder="Название" 
-          pattern="^[a-zA-Z]+$"
+          pattern="^[0-9a-Z\sёЁ\-]+$"
           minlength="2"
           maxlength="30"
+          data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" 
           required>
         <span class="placename-input-error form__input-error"></span> 
         <input 
