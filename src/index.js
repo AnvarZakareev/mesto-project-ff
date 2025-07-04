@@ -130,6 +130,16 @@ const hideInputError = (formElement, inputElement) => {
 // formElement — html-элемент формы, в которой находится проверяемое поле ввода. Он нужен для поиска элемента ошибки в форме.
 // inputElement — проверяемое поле ввода.
 const isValid = (formElement, inputElement) => {
+  // console.log(inputElement.validity.patternMismatch)
+  if (inputElement.validity.patternMismatch) {
+    // встроенный метод setCustomValidity принимает на вход строку
+    // и заменяет ею стандартное сообщение об ошибке
+    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+  } else {
+    // если передать пустую строку, то будут доступны
+    // стандартные браузерные сообщения
+    inputElement.setCustomValidity("");
+  }
   if (!inputElement.validity.valid) {
     // showInputError теперь получает параметром форму, в которой
     // находится проверяемое поле, и само это поле
@@ -197,7 +207,6 @@ const hasInvalidInput = (inputList) => {
     return !inputElement.validity.valid;
   })
 };
-
 
 // Функция принимает массив полей ввода
 // и элемент кнопки, состояние которой нужно менять
