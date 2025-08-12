@@ -138,5 +138,9 @@ enableValidation({
 
 // очистка ошибок валидации вызовом clearValidation
 
+<<<<<<< HEAD
 clearValidation(profileForm, validationConfig);
 >>>>>>> 98dc585 (2321020725)
+=======
+clearValidation(profileForm, validationConfig);0
+>>>>>>> 65ba5d5 (stop in julay)

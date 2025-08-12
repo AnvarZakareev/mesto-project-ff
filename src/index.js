@@ -144,6 +144,7 @@ const formInput = formElement.querySelector('.popup__input');
 const formError = formElement.querySelector(`.${formInput.id}-error`);
 
 // Функция, которая добавляет класс с ошибкой
+
 const showInputError = (formElement, inputElement, errorMessage) => {
   // Находим элемент ошибки внутри самой функции
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -156,6 +157,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 
 
 // Функция, которая удаляет класс с ошибкой
+
 const hideInputError = (formElement, inputElement) => {
   // Находим элемент ошибки
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
