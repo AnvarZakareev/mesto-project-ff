@@ -105,7 +105,7 @@ const formElement = document.querySelector('.popup__form');
 const formInput = formElement.querySelector('.popup__input');
 
 // Выбираем элемент ошибки на основе уникального класса 
-const formError = formElement.querySelector(`.${formInput.id}-error`);
+// const formError = formElement.querySelector(`.${formInput.id}-error`);
 
 // Функция, которая добавляет класс с ошибкой
 // Передадим текст ошибки вторым параметром
@@ -132,20 +132,30 @@ const hideInputError = (formElement, inputElement) => {
 
 // Функция, которая проверяет валидность поля
 const isValid = (formElement, inputElement) => {
-  if (!formInput.validity.valid) {
+  if (inputElement.validity.patternMismatch) {
+    // встроенный метод setCustomValidity принимает на вход строку
+    // и заменяет ею стандартное сообщение об ошибке
+    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+  } else {
+        // если передать пустую строку, то будут доступны
+        // стандартные браузерные сообщения
+    inputElement.setCustomValidity("");
+  }
+  if (!inputElement.validity.valid) {
+    // теперь, если ошибка вызвана регулярным выражением,
+    // переменная validationMessage хранит наше кастомное сообщение
     // Если поле не проходит валидацию, покажем ошибку
     // Передадим сообщение об ошибке вторым аргументом
     // showInputError теперь получает параметром форму, в которой
     // находится проверяемое поле, и само это поле
     showInputError(formElement, inputElement, inputElement.validationMessage);
-    console.log('NO')
+    // console.log('NO')
   } else {
     // Если проходит, скроем
     // hideInputError теперь получает параметром форму, в которой
     // находится проверяемое поле, и само это поле
     hideInputError(formElement, inputElement);
-    console.log('OK')
-
+    // console.log('OK')
   }
 };
 
@@ -186,6 +196,7 @@ const hasInvalidInput = (inputList) => {
   })
 };
 
+
 // Функция принимает массив полей ввода
 // и элемент кнопки, состояние которой нужно менять
 
@@ -193,16 +204,14 @@ const toggleButtonState = (inputList, buttonElement) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
-    // buttonElement.disabled = true;
+    buttonElement.disabled = true;
     buttonElement.classList.add('popup__button_disabled');
   } else {
     // иначе сделай кнопку активной
-    // buttonElement.disabled = false;
+    buttonElement.disabled = false;
     buttonElement.classList.remove('popup__button_disabled');
   }
 };
-
-
 
 //Функция enableValidation найдёт на странице и обработает все формы с классом form.
 

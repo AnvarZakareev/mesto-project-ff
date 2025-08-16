@@ -46,7 +46,8 @@
           placeholder="Имя" 
           minlength="2"
           maxlength="40"
-          pattern="^[a-zA-Z]+$"
+          pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
+          data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
           required>
         <span class="name-input-error popup__input-error"></span>
         <input 
@@ -57,7 +58,8 @@
           placeholder="Занятие" 
           minlength="2"
           maxlength="200"
-          pattern="^[a-zA-Z]+$"
+          pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
+          data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
           required>
         <span class="description-input-error popup__input-error"></span>
         <button type="submit" class="button popup__button">Сохранить</button>
@@ -77,8 +79,9 @@
         class="popup__input popup__input_type_card-name" 
         placeholder="Название" 
         minlength="2"
-        maxlength="40"
-        pattern="^[a-zA-Z]+$"
+        maxlength="30"
+        pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$"
+        data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
         required>
         <span class="placename-input-error popup__input-error"></span>
         <input 
@@ -86,10 +89,11 @@
         name="link" 
         id="link-input"
         class="popup__input popup__input_type_url" 
-        placeholder="Ссылка на картинку" 
-        minlength="2"
-        maxlength="40"
+        placeholder="Ссылка на картинку"
         required>
+        <!-- minlength="2"
+        maxlength="40"
+        pattern="^[a-zA-Z]+$" -->
         <span class="link-input-error popup__input-error"></span>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
