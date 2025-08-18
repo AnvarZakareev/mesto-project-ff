@@ -30,8 +30,8 @@ import {openModal, closeModal} from './components/modal.js';
 
 const placesList = document.querySelector('.places__list');
 const profileEdit = document.querySelector('.profile__edit-button');
-const profileAdd = document.querySelector('.profile__add-button');
 const popupEdit = document.querySelector('.popup_type_edit');
+const profileAdd = document.querySelector('.profile__add-button');
 const formAddCard = document.querySelector('.popup_type_new-card');
 const popupImage = document.querySelector('.popup_type_image');
 const profileTitle = document.querySelector('.profile__title');
@@ -55,6 +55,7 @@ profileEdit.addEventListener('click', () => {
   popupDescription.value = profileDescription.textContent;
   openModal(popupEdit)
 });
+
 profileAdd.addEventListener('click', () => openModal(formAddCard));
 function handleImageClick(link, alt, name) {
   const image = document.querySelector('.popup__image');
@@ -230,3 +231,9 @@ const enableValidation = () => {
 
 // Вызовем функцию
 enableValidation();
+
+
+// to do
+
+  // после закрытия окна добавления карточки не сбрасывается значенее 
+  // document.forms.newplace.placename.value = '' не работает

@@ -11,7 +11,23 @@ function openModal (popup) {
   popup.classList.add('popup_is-opened');
   document.addEventListener('click', closePopupOverlay);
   document.addEventListener('keydown', closePopupEsc);
-};
+
+  // Удаление ошибок при открытие окна
+  const formElement = popup.querySelector('.popup__form')
+  // Находим все поля внутри формы,
+  // сделаем из них массив методом Array.from
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'))
+  // Обойдём все элементы полученной коллекции
+  inputList.forEach((inputElement) => {
+  // Находим элемент ошибки
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('popup__input_type_error');
+  // Скрываем сообщение об ошибке
+  errorElement.classList.remove('popup__input-error_active');
+  // Очистим ошибку
+  errorElement.textContent = '';
+})
+}
 
 function closeModal (popup) {
   popup.classList.remove('popup_is-opened');
