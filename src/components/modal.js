@@ -11,10 +11,13 @@ function openModal (popup) {
   popup.classList.add('popup_is-opened');
   document.addEventListener('click', closePopupOverlay);
   document.addEventListener('keydown', closePopupEsc);
+  clearError (popup);
+}
 
-  // Удаление ошибок при открытие окна
+// Удаление ошибок при открытие окна
+function clearError (popup) {
+  // Находим все поля внутри формы
   const formElement = popup.querySelector('.popup__form')
-  // Находим все поля внутри формы,
   // сделаем из них массив методом Array.from
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'))
   // Обойдём все элементы полученной коллекции

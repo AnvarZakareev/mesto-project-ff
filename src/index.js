@@ -56,7 +56,21 @@ profileEdit.addEventListener('click', () => {
   openModal(popupEdit)
 });
 
-profileAdd.addEventListener('click', () => openModal(formAddCard));
+profileAdd.addEventListener('click', () => openModal(formAddCard)
+);
+
+profileAdd.addEventListener('click', () => cleanInput(formAddCard)
+);
+
+// отчистка поля ввода
+
+function cleanInput(popup) {
+  const cleanArrInput = popup.querySelectorAll('.popup__input')
+  cleanArrInput.forEach((errorInput) => {
+    errorInput.value = ''
+  })
+}
+
 function handleImageClick(link, alt, name) {
   const image = document.querySelector('.popup__image');
   image.src = link;
@@ -234,6 +248,3 @@ enableValidation();
 
 
 // to do
-
-  // после закрытия окна добавления карточки не сбрасывается значенее 
-  // document.forms.newplace.placename.value = '' не работает
