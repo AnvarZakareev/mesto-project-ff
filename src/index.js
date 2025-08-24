@@ -124,7 +124,8 @@ enableValidation(
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
+  inputErrorActive: 'popup__input-error_active',
+  // errorClass: 'popup__error_visible'
 });
 
 // to do
