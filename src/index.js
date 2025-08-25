@@ -23,7 +23,7 @@ import './pages/index.css';
 import {initialCards} from './scripts/cards.js';
 import {createCard, deleteCard, likeCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
-import {enableValidation} from './components/validation.js';
+import {enableValidation, clearValidation} from './components/validation.js';
 
 
 // Oбъявления и инициализация глобальных констант и
@@ -55,22 +55,24 @@ profileEdit.addEventListener('click', () => {
   popupName.value = profileTitle.textContent;
   popupDescription.value = profileDescription.textContent;
   openModal(popupEdit)
+  clearValidation(popupEdit, validationConfig)
 });
 
-profileAdd.addEventListener('click', () => openModal(formAddCard)
+profileAdd.addEventListener('click', () => openModal(formAddCard) 
 );
 
-profileAdd.addEventListener('click', () => cleanInput(formAddCard)
+profileAdd.addEventListener('click', () => clearValidation(formAddCard, validationConfig)
 );
+
 
 // отчистка поля ввода
 
-function cleanInput(popup) {
-  const cleanArrInput = popup.querySelectorAll('.popup__input')
-  cleanArrInput.forEach((errorInput) => {
-    errorInput.value = ''
-  })
-}
+// function cleanInput(popup) {
+//   const cleanArrInput = popup.querySelectorAll('.popup__input')
+//   cleanArrInput.forEach((errorInput) => {
+//     errorInput.value = ''
+//   })
+// }
 
 function handleImageClick(link, alt, name) {
   const image = document.querySelector('.popup__image');
@@ -78,6 +80,7 @@ function handleImageClick(link, alt, name) {
   image.alt = alt;
   const caption = document.querySelector('.popup__caption');
   caption.textContent = name;
+  // clearValidation(popup, validationConfig)
   openModal(popupImage);
 }
 
@@ -113,10 +116,7 @@ function addCard(evt) {
 
 formAddCard.addEventListener('submit', addCard);
 
-// enableValidation();
-
 // включение валидации вызовом enableValidation (все настройки передаются при вызове)
-
 enableValidation(
   {
   formSelector: '.popup__form',
@@ -125,7 +125,15 @@ enableValidation(
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__input_type_error',
   inputErrorActive: 'popup__input-error_active',
-  // errorClass: 'popup__error_visible'
 });
 
+// Настройки валидации
+
+const validationConfig ={
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  inputErrorClass: 'popup__input_type_error',
+  inputErrorActive: 'popup__input-error_active',
+  submitButtonSelector: '.popup__button',
+}
 // to do
