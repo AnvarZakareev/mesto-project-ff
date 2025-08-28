@@ -24,6 +24,7 @@ import {initialCards} from './scripts/cards.js';
 import {createCard, deleteCard, likeCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
 import {enableValidation, clearValidation} from './components/validation.js';
+import {getUser} from './components/api.js'
 
 
 // Oбъявления и инициализация глобальных констант и
@@ -37,6 +38,7 @@ const formAddCard = document.querySelector('.popup_type_new-card');
 const popupImage = document.querySelector('.popup_type_image');
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
+const profileAvatar = document.querySelector('.profile__image')
 const popupName = document.querySelector('.popup__input_type_name');
 const popupDescription = document.querySelector('.popup__input_type_description');
 
@@ -136,4 +138,18 @@ const validationConfig ={
   inputErrorActive: 'popup__input-error_active',
   submitButtonSelector: '.popup__button',
 }
+
+// Загрузка информации о пользователе с сервера
+
+getUser()
+.then((result) => {
+  // console.log(profileAvatar)
+  profileTitle.textContent = result.name ;
+  profileDescription.textContent = result.about;
+  profileAvatar.style.backgroundImage = `url(${result.avatar})`;
+})
+
+
+
+
 // to do

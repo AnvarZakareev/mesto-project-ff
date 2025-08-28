@@ -1,3 +1,5 @@
+export {getUser}
+
 // Вот небольшой пример того, как можно обустроить код в файле api.js:
 
 // const config = {
@@ -25,21 +27,32 @@
 //     console.log(result);
 //   });}
   
-  
-// это GET-запрос к ресурсу https://nomoreparties.co/v1/wff-cohort-41/cards
 
-function user() {
-    console.log("start")
-  fetch ('https://nomoreparties.co/v1/wff-cohort-41/users/me', {
-      headers: {
-        authorization: '3ad95690-ba9a-4d17-9a66-c1e37bacbfe2'
-    }
+// Все запросы присвойте переменным
+
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/wff-cohort-41',
+  headers: {
+    authorization: '3ad95690-ba9a-4d17-9a66-c1e37bacbfe2',
+    // 'Content-Type': 'application/json'
+  }
+}
+
+// Загрузка информации о пользователе с сервера
+
+const getUser = () => {
+    // console.log(`${config.baseUrl}/users/me`)}
+  return fetch (`${config.baseUrl}/users/me`, {
+      headers: config.headers
   })
-  .then(res => res.json())
-  .then((result) => {
-    console.dir(result);
-        console.log("finish")
+  .then(res => {
+    if (res.ok) {
+        return res.json() 
+    }
+              // если ошибка, отклоняем промис
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((result) => {
+    return result
   });}
 
-  // api()
-  user()
