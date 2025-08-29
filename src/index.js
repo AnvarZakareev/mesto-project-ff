@@ -24,7 +24,7 @@ import {initialCards} from './scripts/cards.js';
 import {createCard, deleteCard, likeCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
 import {enableValidation, clearValidation} from './components/validation.js';
-import {getUser} from './components/api.js'
+import {getUser, getInitialCards} from './components/api.js'
 
 
 // Oбъявления и инициализация глобальных констант и
@@ -41,15 +41,6 @@ const profileDescription = document.querySelector('.profile__description');
 const profileAvatar = document.querySelector('.profile__image')
 const popupName = document.querySelector('.popup__input_type_name');
 const popupDescription = document.querySelector('.popup__input_type_description');
-
-
-// Загрузка массива карт из cards.js
-
-initialCards.forEach((cardData) => {
-  const cardElement = createCard(cardData, deleteCard, handleImageClick, likeCard)
-  placesList.append(cardElement);
-});
-
 
 // открытие окон попапов
 
@@ -143,11 +134,35 @@ const validationConfig ={
 
 getUser()
 .then((result) => {
-  // console.log(profileAvatar)
   profileTitle.textContent = result.name ;
   profileDescription.textContent = result.about;
   profileAvatar.style.backgroundImage = `url(${result.avatar})`;
 })
+
+// Загрузка карточек с сервера
+
+getInitialCards()
+.then((result) => {
+  result.forEach((cardData) => {
+      console.log('001')
+    const cardElement = createCard(cardData, deleteCard, handleImageClick, likeCard)
+    placesList.append(cardElement);
+  });
+})
+
+// Редактирование профиля
+
+// fetch('https://nomoreparties.co/v1/wff-cohort-41/users/me', {
+//   method: 'PATCH',
+//   headers: {
+//     authorization: 'c56e30dc-2883-4270-a59e-b2f7bae969c6',
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     name: 'Marie Skłodowska Curie',
+//     about: 'Physicist and Chemist'
+//   })
+// });
 
 
 
