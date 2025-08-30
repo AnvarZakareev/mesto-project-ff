@@ -20,7 +20,7 @@
 // Импорт
 
 import './pages/index.css';
-import {initialCards} from './scripts/cards.js';
+// import {initialCards} from './scripts/cards.js';
 import {createCard, deleteCard, likeCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
 import {enableValidation, clearValidation} from './components/validation.js';
@@ -82,11 +82,13 @@ function handleImageClick(link, alt, name) {
 
 const formEdiProfile = document.querySelector('[name="edit-profile"]');
 function submitFormEdiProfile(evt) {
-    evt.preventDefault();
-    profileTitle.textContent = popupName.value;
-    profileDescription.textContent = popupDescription.value;
-    closeModal(formEdiProfile.parentNode.parentNode);
+  evt.preventDefault();
+  profileTitle.textContent = popupName.value;
+  profileDescription.textContent = popupDescription.value;
+  closeModal(formEdiProfile.parentNode.parentNode);
+  pathProfile(popupName.value, popupDescription.value);
 }
+
 
 formEdiProfile.addEventListener('submit', submitFormEdiProfile);
 
@@ -151,28 +153,6 @@ getUser()
 
 // Редактирование профиля
 
-pathProfile('007', 'agent') 
-
-// editProfile()
-//   .then((result) => {
-//     con
-//   })
-//   .catch((err) => {
-//     console.log(err); // выводим ошибку в консоль
-//   }); 
-
-// fetch('https://nomoreparties.co/v1/wff-cohort-41/users/me', {
-//     method: 'PATCH',
-//     headers: {
-//         authorization: '3ad95690-ba9a-4d17-9a66-c1e37bacbfe2',
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({
-//           name: 'Freeman',
-//           about: 'Physicist'
-//         })
-//       });
-      
 
       // console.log('001')
 

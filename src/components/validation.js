@@ -100,7 +100,7 @@ function enableValidation (settings) {
 
 // очистка ошибок валидации вызовом clearValidation
   function clearValidation (profileForm, validationConfig) {
-    console.log('test')
+    // console.log('test')
     // console.log(profileForm)
     // console.log(validationConfig)
 //   // Находим все поля внутри формы
