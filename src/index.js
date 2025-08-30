@@ -24,7 +24,7 @@ import {initialCards} from './scripts/cards.js';
 import {createCard, deleteCard, likeCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
 import {enableValidation, clearValidation} from './components/validation.js';
-import {getUser, getInitialCards} from './components/api.js'
+import {getUser, getInitialCards, pathProfile} from './components/api.js'
 
 
 // Oбъявления и инициализация глобальных констант и
@@ -141,30 +141,39 @@ getUser()
 
 // Загрузка карточек с сервера
 
-getInitialCards()
-.then((result) => {
-  result.forEach((cardData) => {
-      console.log('001')
-    const cardElement = createCard(cardData, deleteCard, handleImageClick, likeCard)
-    placesList.append(cardElement);
-  });
-})
+// getInitialCards()
+// .then((result) => {
+//   result.forEach((cardData) => {
+//     const cardElement = createCard(cardData, deleteCard, handleImageClick, likeCard)
+//     placesList.append(cardElement);
+//   });
+// })
 
 // Редактирование профиля
 
-// fetch('https://nomoreparties.co/v1/wff-cohort-41/users/me', {
-//   method: 'PATCH',
-//   headers: {
-//     authorization: 'c56e30dc-2883-4270-a59e-b2f7bae969c6',
-//     'Content-Type': 'application/json'
-//   },
-//   body: JSON.stringify({
-//     name: 'Marie Skłodowska Curie',
-//     about: 'Physicist and Chemist'
+pathProfile('007', 'agent') 
+
+// editProfile()
+//   .then((result) => {
+//     con
 //   })
-// });
+//   .catch((err) => {
+//     console.log(err); // выводим ошибку в консоль
+//   }); 
 
+// fetch('https://nomoreparties.co/v1/wff-cohort-41/users/me', {
+//     method: 'PATCH',
+//     headers: {
+//         authorization: '3ad95690-ba9a-4d17-9a66-c1e37bacbfe2',
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({
+//           name: 'Freeman',
+//           about: 'Physicist'
+//         })
+//       });
+      
 
-
+      // console.log('001')
 
 // to do

@@ -1,4 +1,4 @@
-export {getUser, getInitialCards}
+export {getUser, getInitialCards, pathProfile}
 
 // Все запросы присвойте переменным
 
@@ -6,7 +6,7 @@ const config = {
   baseUrl: 'https://nomoreparties.co/v1/wff-cohort-41',
   headers: {
     authorization: '3ad95690-ba9a-4d17-9a66-c1e37bacbfe2',
-    // 'Content-Type': 'application/json'
+    'Content-Type': 'application/json'
   }
 }
 
@@ -14,7 +14,7 @@ const config = {
 
 const getUser = () => {
     // console.log(`${config.baseUrl}/users/me`)}
-  return fetch (`${config.baseUrl}/users/me`, {
+  return fetch(`${config.baseUrl}/users/me`, {
       headers: config.headers
   })
   .then(res => {
@@ -38,19 +38,23 @@ const getInitialCards = () => {
       if (res.ok) {
         return res.json();
       }
-      // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     });
 } 
 
 // Редактирование профиля
 
-// const editProfile = () => {
-//   return fetch(`${config.baseUrl}users/me`, {
+// fetch(`${config.baseUrl}users/me`, {
 //   method: 'POST',
 //   headers: config.headers
 //   }
-//   body: JSON.stringify({
-//     name: 'Marie Skłodowska Curie',
-//     about: 'Physicist and Chemist'
-//   }))}
+
+const pathProfile = (name, about) => {
+  return fetch(`${config.baseUrl}/users/me`, {
+    method: 'PATCH',
+    headers: config.headers,
+      body: JSON.stringify({
+          name: name,
+          about: about})
+      })
+}
