@@ -24,7 +24,7 @@ import './pages/index.css';
 import {createCard, deleteCard, likeCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
 import {enableValidation, clearValidation} from './components/validation.js';
-import {getUser, getInitialCards, pathProfile} from './components/api.js'
+import {getUser, getInitialCards, pathProfile, pathCard} from './components/api.js'
 
 
 // Oбъявления и инициализация глобальных констант и
@@ -86,6 +86,7 @@ function submitFormEdiProfile(evt) {
   profileTitle.textContent = popupName.value;
   profileDescription.textContent = popupDescription.value;
   closeModal(formEdiProfile.parentNode.parentNode);
+  // Редактирование профиля
   pathProfile(popupName.value, popupDescription.value);
 }
 
@@ -103,15 +104,21 @@ function addCard(evt) {
   const newCard = {};
   newCard.name = name.value;
   newCard.link = link.value;
-  const cardElement = createCard(newCard, deleteCard, handleImageClick, likeCard);
-  placesList.prepend(cardElement);
+  // Добавление новой карточки
+  pathCard(name.value, link.value)
+  .then ((res) => {
+    const cardElement = createCard(res, deleteCard, handleImageClick, likeCard)
+    placesList.append(cardElement)
+  })
   popupForm.reset();
   closeModal(formAddCard);
+
 }
 
 formAddCard.addEventListener('submit', addCard);
 
 // включение валидации вызовом enableValidation (все настройки передаются при вызове)
+
 enableValidation(
   {
   formSelector: '.popup__form',
@@ -143,17 +150,11 @@ getUser()
 
 // Загрузка карточек с сервера
 
-// getInitialCards()
-// .then((result) => {
-//   result.forEach((cardData) => {
-//     const cardElement = createCard(cardData, deleteCard, handleImageClick, likeCard)
-//     placesList.append(cardElement);
-//   });
-// })
+getInitialCards()
+.then((result) => {
+  result.forEach((cardData) => {
+    const cardElement = createCard(cardData, deleteCard, handleImageClick, likeCard)
+    placesList.append(cardElement);
+  });
+})
 
-// Редактирование профиля
-
-
-      // console.log('001')
-
-// to do

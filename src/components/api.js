@@ -1,4 +1,4 @@
-export {getUser, getInitialCards, pathProfile}
+export {getUser, getInitialCards, pathProfile, pathCard}
 
 // Все запросы присвойте переменным
 
@@ -21,7 +21,7 @@ const getUser = () => {
     if (res.ok) {
         return res.json() 
     }
-              // если ошибка, отклоняем промис
+      // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((result) => {
@@ -52,10 +52,28 @@ const pathProfile = (name, about) => {
         name: name,
         about: about})
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+  });
+}
+
+// Добавление новой карточки
+
+const pathCard = (name, link) => {
+  return fetch(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: name,
+      link: link})
+    })
+    .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
 }
