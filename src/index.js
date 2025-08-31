@@ -112,7 +112,6 @@ function addCard(evt) {
   })
   popupForm.reset();
   closeModal(formAddCard);
-
 }
 
 formAddCard.addEventListener('submit', addCard);
@@ -154,6 +153,7 @@ getInitialCards()
 .then((result) => {
   result.forEach((cardData) => {
     const cardElement = createCard(cardData, deleteCard, handleImageClick, likeCard)
+    console.log(cardData);
     placesList.append(cardElement);
   });
 })

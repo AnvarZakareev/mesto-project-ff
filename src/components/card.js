@@ -6,7 +6,7 @@ const cardTemplate = document.querySelector('#card-template')
 // и функцию-колбэк для удаления, а возвращает подготовленный к
 // выводу элемент карточки
 
-function createCard (card, delateCard, handleImageClick, likeCard, getCardTemplate)
+function createCard (card, deleteCard, handleImageClick, likeCard, getCardTemplate)
 {
   const cardTemplateContent = cardTemplate.content;
   const cardElement = cardTemplateContent.querySelector('.places__item').cloneNode(true);
@@ -15,8 +15,9 @@ function createCard (card, delateCard, handleImageClick, likeCard, getCardTempla
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__image').alt = card.alt;
   cardElement.querySelector('.card__title').textContent = card.name;
+  cardElement.querySelector('.card__like-quantity').textContent = card.likes.length;
   const cardDeleteButton = cardElement.querySelector('.card__delete-button');
-  cardDeleteButton.addEventListener("click", delateCard);
+  cardDeleteButton.addEventListener("click", deleteCard);
   const cardImage = cardElement.querySelector('.card__image');
   cardImage.addEventListener("click", () => {
     handleImageClick(card.link, card.alt, card.name)
