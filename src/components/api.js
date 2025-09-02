@@ -1,4 +1,4 @@
-export {getUser, getInitialCards, pathProfile, pathCard}
+export {getUser, getInitialCards, pathProfile, pathCard, delCard}
 
 // Все запросы присвойте переменным
 
@@ -42,6 +42,8 @@ const getInitialCards = () => {
     });
 } 
 
+
+
 // Редактирование профиля
 
 const pathProfile = (name, about) => {
@@ -71,6 +73,21 @@ const pathCard = (name, link) => {
       link: link})
     })
     .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
+}
+
+// Удаление карточки
+
+const delCard = (card) => {
+  return fetch(`${config.baseUrl}/cards/${card._id}`,{
+    method: 'DELETE',
+    headers: config.headers,
+  })
+  .then(res => {
     if (res.ok) {
       return res.json();
     }

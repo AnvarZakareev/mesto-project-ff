@@ -21,7 +21,7 @@
 
 import './pages/index.css';
 // import {initialCards} from './scripts/cards.js';
-import {createCard, deleteCard, likeCard} from './components/card.js';
+import {createCard, deleteConfirm, likeCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
 import {enableValidation, clearValidation} from './components/validation.js';
 import {getUser, getInitialCards, pathProfile, pathCard} from './components/api.js'
@@ -107,7 +107,7 @@ function addCard(evt) {
   // Добавление новой карточки
   pathCard(name.value, link.value)
   .then ((res) => {
-    const cardElement = createCard(res, deleteCard, handleImageClick, likeCard)
+    const cardElement = createCard(res, deleteConfirm, handleImageClick, likeCard)
     placesList.append(cardElement)
   })
   popupForm.reset();
@@ -140,21 +140,43 @@ const validationConfig ={
 
 // Загрузка информации о пользователе с сервера
 
-getUser()
-.then((result) => {
-  profileTitle.textContent = result.name ;
-  profileDescription.textContent = result.about;
-  profileAvatar.style.backgroundImage = `url(${result.avatar})`;
-})
+// getUser()
+// .then((result) => {
+//   profileTitle.textContent = result.name ;
+//   profileDescription.textContent = result.about;
+//   profileAvatar.style.backgroundImage = `url(${result.avatar})`;
+//   const userId = result._id;
+// })
 
 // Загрузка карточек с сервера
+// Oтображать карточки на странице следует только после получения _id пользователя
+// getInitialCards()
+// .then((result) => {
+  // result.forEach((cardData) => {
+  // const cardElement = createCard(cardData, deleteCard, handleImageClick, likeCard)
+  // placesList.append(cardElement);
+// })
 
-getInitialCards()
-.then((result) => {
-  result.forEach((cardData) => {
-    const cardElement = createCard(cardData, deleteCard, handleImageClick, likeCard)
-    console.log(cardData);
-    placesList.append(cardElement);
-  });
-})
+// Создаём массив с промисами
+const getAll = [getUser(), getInitialCards()]
+
+Promise.all(getAll)
+  .then((result) => {
+    profileTitle.textContent = result[0].name ;
+    profileDescription.textContent = result[0].about;
+    profileAvatar.style.backgroundImage = `url(${result[0].avatar})`;
+    const userId = result[0]._id;
+    // console.log(userId)
+    result[1].forEach((cardData) => {
+      
+      // console.log(cardData.owner._id)
+      // if(cardData.owner._id == userId)
+      // {console.log('ok')}
+      // else{console.log('no')}
+      const cardElement = createCard(cardData, deleteConfirm, handleImageClick, likeCard, userId)
+      placesList.append(cardElement);
+      // console.log(cardData._id)
+    })
+    // console.log(result[1])
+  })
 
