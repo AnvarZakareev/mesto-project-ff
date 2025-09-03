@@ -1,6 +1,6 @@
-export {createCard, deleteConfirm, likeCard};
+export {createCard, likeCard};
 import {openModal, closeModal } from "./modal";
-import {deleteCardApi} from "./api";
+import {deleteCardApi, putLikeCard, deleteLikeCard} from "./api";
 
 const cardTemplate = document.querySelector('#card-template')
 const popupConfirm = document.querySelector('.popup__confirm')
@@ -10,7 +10,7 @@ const popupConfirm = document.querySelector('.popup__confirm')
 // и функцию-колбэк для удаления, а возвращает подготовленный к
 // выводу элемент карточки
 
-function createCard (card, deleteConfirm, handleImageClick, likeCard, userId) { 
+function createCard (card, handleImageClick, userId) { 
   const cardTemplateContent = cardTemplate.content;
   const cardElement = cardTemplateContent.querySelector('.places__item').cloneNode(true);
   // Функционал клонирования шаблона карточки рекомендуется вынести в отдельную функцию getCardTemplate,
@@ -20,7 +20,7 @@ function createCard (card, deleteConfirm, handleImageClick, likeCard, userId) {
   cardElement.querySelector('.card__title').textContent = card.name;
   cardElement.querySelector('.card__like-quantity').textContent = card.likes.length;
   const cardDeleteButton = cardElement.querySelector('.card__delete-button');
-  isMyLike (userId, card, cardDeleteButton, cardElement);
+  isMyCard (userId, card, cardDeleteButton, cardElement);
   const cardImage = cardElement.querySelector('.card__image');
   cardImage.addEventListener("click", () => {
     handleImageClick(card.link, card.alt, card.name)
@@ -34,7 +34,7 @@ function createCard (card, deleteConfirm, handleImageClick, likeCard, userId) {
 
 // Проверка созданна ли карточка пользователем
 
-function isMyLike (userId, card, cardDeleteButton, cardElement) {
+function isMyCard (userId, card, cardDeleteButton, cardElement) {
   if (userId == card.owner._id) {
     cardDeleteButton.addEventListener("click", () => {
       deleteConfirm(card, cardElement)

@@ -1,4 +1,4 @@
-export {getUser, getInitialCards, pathProfile, pathCard, deleteCardApi}
+export {getUser, getInitialCards, pathProfile, pathCard, deleteCardApi, putLikeCard, deleteLikeCard}
 
 // Все запросы присвойте переменным
 
@@ -95,4 +95,32 @@ const deleteCardApi = (card) => {
   });
 }
 
-// Постановка и снятие лайка
+// Постановка лайка
+
+const putLikeCard = (card) => {
+  return fetch(`${config.baseUrl}/cards/likes/${card._id}`, {
+    method: 'PUT',
+    headers: config.headers,
+    })
+    .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
+}
+
+// Cнятие лайка
+
+const deleteLikeCard = (card) => {
+  return fetch(`${config.baseUrl}/cards/likes/${card._id}`, {
+    method: 'DELETE',
+    headers: config.headers,
+    })
+    .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
+}

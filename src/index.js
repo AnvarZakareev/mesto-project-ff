@@ -21,7 +21,7 @@
 
 import './pages/index.css';
 // import {initialCards} from './scripts/cards.js';
-import {createCard, deleteConfirm, likeCard} from './components/card.js';
+import {createCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
 import {enableValidation, clearValidation} from './components/validation.js';
 import {getUser, getInitialCards, pathProfile, pathCard} from './components/api.js'
@@ -108,7 +108,7 @@ function addCard(evt) {
   pathCard(name.value, link.value)
   .then ((res) => {
     // console.log(res)
-    const cardElement = createCard(res, deleteConfirm, handleImageClick, likeCard)
+    const cardElement = createCard(res, handleImageClick)
     // placesList.append(cardElement)
     placesList.prepend(cardElement)
   })
@@ -139,27 +139,11 @@ const validationConfig ={
   inputErrorActive: 'popup__input-error_active',
   submitButtonSelector: '.popup__button',
 }
-
-// Загрузка информации о пользователе с сервера
-
-// getUser()
-// .then((result) => {
-//   profileTitle.textContent = result.name ;
-//   profileDescription.textContent = result.about;
-//   profileAvatar.style.backgroundImage = `url(${result.avatar})`;
-//   const userId = result._id;
-// })
-
-// Загрузка карточек с сервера
-// Oтображать карточки на странице следует только после получения _id пользователя
-// getInitialCards()
-// .then((result) => {
-  // result.forEach((cardData) => {
-  // const cardElement = createCard(cardData, deleteCard, handleImageClick, likeCard)
-  // placesList.append(cardElement);
-// })
-
+      
 // Создаём массив с промисами
+// Загрузка информации о пользователе с сервера
+// Загрузка карточек с сервера
+
 const getAll = [getUser(), getInitialCards()]
 
 Promise.all(getAll)
@@ -168,17 +152,10 @@ Promise.all(getAll)
     profileDescription.textContent = result[0].about;
     profileAvatar.style.backgroundImage = `url(${result[0].avatar})`;
     const userId = result[0]._id;
-    // console.log(userId)
     result[1].forEach((cardData) => {
-      
-      // console.log(cardData.owner._id)
-      // if(cardData.owner._id == userId)
-      // {console.log('ok')}
-      // else{console.log('no')}
-      const cardElement = createCard(cardData, deleteConfirm, handleImageClick, likeCard, userId)
+
+      const cardElement = createCard(cardData, handleImageClick, userId)
       placesList.append(cardElement);
-      // console.log(cardData._id)
     })
-    // console.log(result[1])
   })
 
