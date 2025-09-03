@@ -20,14 +20,7 @@ function createCard (card, deleteConfirm, handleImageClick, likeCard, userId) {
   cardElement.querySelector('.card__title').textContent = card.name;
   cardElement.querySelector('.card__like-quantity').textContent = card.likes.length;
   const cardDeleteButton = cardElement.querySelector('.card__delete-button');
-  if (userId == card.owner._id) {
-    cardDeleteButton.addEventListener("click", () => {
-      deleteConfirm(card, cardElement)
-    });
-  }
-  else {
-    cardDeleteButton.style.display = 'none';
-  }
+  isMyLike (userId, card, cardDeleteButton, cardElement);
   const cardImage = cardElement.querySelector('.card__image');
   cardImage.addEventListener("click", () => {
     handleImageClick(card.link, card.alt, card.name)
@@ -40,6 +33,17 @@ function createCard (card, deleteConfirm, handleImageClick, likeCard, userId) {
 };
 
 // Проверка созданна ли карточка пользователем
+
+function isMyLike (userId, card, cardDeleteButton, cardElement) {
+  if (userId == card.owner._id) {
+    cardDeleteButton.addEventListener("click", () => {
+      deleteConfirm(card, cardElement)
+    });
+  }
+  else {
+    cardDeleteButton.style.display = 'none';
+  }
+}
 
 // Подтверждение удаления
 

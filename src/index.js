@@ -107,8 +107,10 @@ function addCard(evt) {
   // Добавление новой карточки
   pathCard(name.value, link.value)
   .then ((res) => {
+    // console.log(res)
     const cardElement = createCard(res, deleteConfirm, handleImageClick, likeCard)
-    placesList.append(cardElement)
+    // placesList.append(cardElement)
+    placesList.prepend(cardElement)
   })
   popupForm.reset();
   closeModal(formAddCard);

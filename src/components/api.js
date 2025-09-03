@@ -89,8 +89,10 @@ const deleteCardApi = (card) => {
   })
   .then(res => {
     if (res.ok) {
-      return res.json();
+      return res;
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   });
 }
+
+// Постановка и снятие лайка
