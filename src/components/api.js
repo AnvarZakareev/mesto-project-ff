@@ -1,4 +1,4 @@
-export {getUser, getInitialCards, pathProfile, pathCard, delCard}
+export {getUser, getInitialCards, pathProfile, pathCard, deleteCardApi}
 
 // Все запросы присвойте переменным
 
@@ -82,7 +82,7 @@ const pathCard = (name, link) => {
 
 // Удаление карточки
 
-const delCard = (card) => {
+const deleteCardApi = (card) => {
   return fetch(`${config.baseUrl}/cards/${card._id}`,{
     method: 'DELETE',
     headers: config.headers,
