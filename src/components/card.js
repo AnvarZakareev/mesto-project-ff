@@ -1,4 +1,4 @@
-export {createCard, likeCard};
+export {createCard};
 import {openModal, closeModal } from "./modal";
 import {deleteCardApi, putLikeCard, deleteLikeCard} from "./api";
 
@@ -10,31 +10,79 @@ const popupConfirm = document.querySelector('.popup__confirm')
 // и функцию-колбэк для удаления, а возвращает подготовленный к
 // выводу элемент карточки
 
-function createCard (card, handleImageClick, userId) { 
+function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard) { 
   const cardTemplateContent = cardTemplate.content;
   const cardElement = cardTemplateContent.querySelector('.places__item').cloneNode(true);
+  // const cardLikeQuantity = cardElement.querySelector('.card__like-quantity').textContent
   // Функционал клонирования шаблона карточки рекомендуется вынести в отдельную функцию getCardTemplate,
   // чтобы сделать код более декларативным и переиспользуемым.
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__image').alt = card.alt;
   cardElement.querySelector('.card__title').textContent = card.name;
   cardElement.querySelector('.card__like-quantity').textContent = card.likes.length;
+  // cardLikeQuantity = card.likes.length;
   const cardDeleteButton = cardElement.querySelector('.card__delete-button');
-  isMyCard (userId, card, cardDeleteButton, cardElement);
+  myBasket (userId, card, cardDeleteButton, cardElement);
   const cardImage = cardElement.querySelector('.card__image');
   cardImage.addEventListener("click", () => {
     handleImageClick(card.link, card.alt, card.name)
   });
+  
   const likeButton = cardElement.querySelector('.card__like-button');
+  isMyLike(card, userId, likeButton);
   likeButton.addEventListener("click", () => {
     likeCard(likeButton);
   });
+
   return cardElement;
 };
 
-// Проверка созданна ли карточка пользователем
+// Проверка лайкнута ли карточка пользователем
 
-function isMyCard (userId, card, cardDeleteButton, cardElement) {
+function isMyLike(card, userId, likeButton) {
+  if (card.likes.includes(userId)) 
+    {
+      likeButton.classList.add('card__like-button_is-active')
+      return true
+    }
+    else 
+      {
+      likeButton.classList.remove('card__like-button_is-active')
+      return false
+    }
+}
+
+function likeCard(likeButton)
+{
+  if (likeButton.classList.contains('card__like-button_is-active'))
+    {
+    likeButton.classList.remove('card__like-button_is-active')
+    }
+  else 
+    {
+    likeButton.classList.add('card__like-button_is-active')
+    }
+};
+
+function likeCardApi(card, userId, likeButton, cardLikeQuantity) {
+  if (isMyLike(card, userId))
+    {
+    }
+    else 
+      {
+    }
+}
+
+
+
+
+
+
+
+
+// Корзина на карточке тоько для создателя
+
+function myBasket (userId, card, cardDeleteButton, cardElement) {
   if (userId == card.owner._id) {
     cardDeleteButton.addEventListener("click", () => {
       deleteConfirm(card, cardElement)
@@ -64,6 +112,7 @@ function deleteConfirm (card, cardElement) {
 }
 
 // Удаление со страницы
+
 function deleteCard(evt) {
   evt.remove();
 };
@@ -71,17 +120,8 @@ function deleteCard(evt) {
 
 // Если лайкнуть карточку, сердечко поменяет цвет
 // Обратите внимание что функцию обработчика лайка 
+// putLikeCard deleteLikeCard
 // нужно передать в функцию создания карточки как аргумент.
 // Это понадобится в будущем для интеграции с API.
 
-function likeCard(evt) 
-{
-  if (evt.classList.contains('card__like-button_is-active'))
-    {
-    evt.classList.remove('card__like-button_is-active')
-    }
-  else 
-    {
-    evt.classList.add('card__like-button_is-active')
-    }
-};
+
