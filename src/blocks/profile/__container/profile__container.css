@@ -1,0 +1,7 @@
+.profile__container:hover .profile__image{
+  opacity: 0.5;
+}
+
+.profile__container:hover .profile__overlay{
+  opacity: 1;
+}

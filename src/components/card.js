@@ -13,14 +13,14 @@ const popupConfirm = document.querySelector('.popup__confirm')
 function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard) { 
   const cardTemplateContent = cardTemplate.content;
   const cardElement = cardTemplateContent.querySelector('.places__item').cloneNode(true);
-  // const cardLikeQuantity = cardElement.querySelector('.card__like-quantity').textContent
+  let cardLikeQuantity = cardElement.querySelector('.card__like-quantity')
   // Функционал клонирования шаблона карточки рекомендуется вынести в отдельную функцию getCardTemplate,
   // чтобы сделать код более декларативным и переиспользуемым.
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__image').alt = card.alt;
   cardElement.querySelector('.card__title').textContent = card.name;
-  cardElement.querySelector('.card__like-quantity').textContent = card.likes.length;
-  // cardLikeQuantity = card.likes.length;
+  // cardElement.querySelector('.card__like-quantity').textContent = card.likes.length;
+  cardLikeQuantity.textContent = card.likes.length;
   const cardDeleteButton = cardElement.querySelector('.card__delete-button');
   myBasket (userId, card, cardDeleteButton, cardElement);
   const cardImage = cardElement.querySelector('.card__image');
@@ -29,9 +29,10 @@ function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard
   });
   
   const likeButton = cardElement.querySelector('.card__like-button');
-  isMyLike(card, userId, likeButton);
+  fierstLike(card, userId, likeButton);
   likeButton.addEventListener("click", () => {
-    likeCard(likeButton);
+    likeCardApi(card, userId, likeButton, cardLikeQuantity);
+    cardLikeQuantity += 1
   });
 
   return cardElement;
@@ -39,17 +40,23 @@ function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard
 
 // Проверка лайкнута ли карточка пользователем
 
-function isMyLike(card, userId, likeButton) {
-  if (card.likes.includes(userId)) 
+function isMyLike(card, userId) {
+  if (card.likes.find(like => like._id == userId)) 
     {
-      likeButton.classList.add('card__like-button_is-active')
       return true
     }
     else 
       {
-      likeButton.classList.remove('card__like-button_is-active')
       return false
     }
+}
+
+// Проверка лайков при загрузке
+
+function fierstLike(card, userId, likeButton) {
+  if (isMyLike(card, userId)) {
+      likeButton.classList.add('card__like-button_is-active')
+  }
 }
 
 function likeCard(likeButton)
@@ -66,10 +73,22 @@ function likeCard(likeButton)
 
 function likeCardApi(card, userId, likeButton, cardLikeQuantity) {
   if (isMyLike(card, userId))
-    {
+    {deleteLikeCard(card)
+      .then((res) => {
+        console.log(res.likes.length)
+        likeCard(likeButton)
+        // cardLikeQuantity = res.likes.length
+        return cardLikeQuantity
+      })
     }
     else 
-      {
+      {putLikeCard(card)
+        .then((res) => {
+        console.log(res.likes.length)
+        likeCard(likeButton)
+          // res.likes.length = cardLikeQuantity
+          return cardLikeQuantity
+        })
     }
 }
 
