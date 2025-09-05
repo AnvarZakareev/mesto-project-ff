@@ -39,6 +39,7 @@ const popupImage = document.querySelector('.popup_type_image');
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
 const profileAvatar = document.querySelector('.profile__image')
+const popupAvatar = document.querySelector('.popup_type_avatar')
 const popupName = document.querySelector('.popup__input_type_name');
 const popupDescription = document.querySelector('.popup__input_type_description');
 
@@ -57,6 +58,9 @@ profileAdd.addEventListener('click', () => openModal(formAddCard)
 profileAdd.addEventListener('click', () => clearValidation(formAddCard, validationConfig)
 );
 
+// Обновление аватара пользователя
+
+profileAvatar.addEventListener('click', () => openModal(popupAvatar))
 
 // отчистка поля ввода
 

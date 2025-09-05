@@ -15,10 +15,10 @@
   <main class="content">
     <section class="profile page__section">
       <div class="profile__container">
-        <div class="profile__image" style="background-image: url(<%=require('./images/avatar.jpg')%>)">
+        <div class="profile__overlay">
+          <img src="./images/updateAvatar.svg" class="profile__edit">
         </div>
-          <div class="profile__overlay">
-          <img src="./images/updateAvatar.svg" alt="">
+        <div class="profile__image" style="background-image: url(<%=require('./images/avatar.jpg')%>)">
         </div>
       </div>
       <div class="profile__info">
@@ -116,6 +116,24 @@
   <div class="popup__content popup__content_confirm">
       <h3 class="popup__title">Вы уверены?</h3>
       <button type="button" class="button popup__button">Да</button>
+    </div>
+  </div>
+  <div class="popup popup_type_avatar">
+    <div class="popup__content">
+      <button type="button" class="popup__close"></button>
+      <h3 class="popup__title">Обновить аватар</h3>
+      <form class="popup__form" name="edit-profile"
+      novalidate>
+      <input 
+      type="url" 
+      name="link" 
+      id="link-input"
+      class="popup__input popup__input_type_url" 
+      placeholder="Ссылка на аватар"
+      required>
+      <span class="description-input-error popup__input-error"></span>
+      <button type="submit" class="button popup__button">Сохранить</button>
+      </form>
     </div>
   </div>
 </div>
