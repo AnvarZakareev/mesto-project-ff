@@ -6,9 +6,7 @@ const cardTemplate = document.querySelector('#card-template')
 const popupConfirm = document.querySelector('.popup__confirm')
 
 
-// Функция, которая принимает в аргументах данные одной карточки
-// и функцию-колбэк для удаления, а возвращает подготовленный к
-// выводу элемент карточки
+// Создание карточки
 
 function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard) { 
   const cardTemplateContent = cardTemplate.content;
@@ -19,7 +17,6 @@ function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__image').alt = card.alt;
   cardElement.querySelector('.card__title').textContent = card.name;
-  // cardElement.querySelector('.card__like-quantity').textContent = card.likes.length;
   cardLikeQuantity.textContent = card.likes.length;
   const cardDeleteButton = cardElement.querySelector('.card__delete-button');
   myBasket (userId, card, cardDeleteButton, cardElement);
@@ -27,12 +24,10 @@ function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard
   cardImage.addEventListener("click", () => {
     handleImageClick(card.link, card.alt, card.name)
   });
-  
   const likeButton = cardElement.querySelector('.card__like-button');
   fierstLike(card, userId, likeButton);
   likeButton.addEventListener("click", () => {
-    likeCardApi(card, userId, likeButton, cardLikeQuantity);
-    cardLikeQuantity += 1
+    likeCard(card, likeButton, cardLikeQuantity);
   });
 
   return cardElement;
@@ -59,44 +54,27 @@ function fierstLike(card, userId, likeButton) {
   }
 }
 
-function likeCard(likeButton)
+// постановка снятие лайка и счетчик лайков
+
+function likeCard(card, likeButton, cardLikeQuantity)
 {
   if (likeButton.classList.contains('card__like-button_is-active'))
     {
-    likeButton.classList.remove('card__like-button_is-active')
+      deleteLikeCard(card)
+      .then((res) => {
+        likeButton.classList.remove('card__like-button_is-active')
+        cardLikeQuantity.textContent = Number(cardLikeQuantity.textContent) - 1
+      })
     }
   else 
     {
-    likeButton.classList.add('card__like-button_is-active')
-    }
-};
-
-function likeCardApi(card, userId, likeButton, cardLikeQuantity) {
-  if (isMyLike(card, userId))
-    {deleteLikeCard(card)
+      putLikeCard(card)
       .then((res) => {
-        console.log(res.likes.length)
-        likeCard(likeButton)
-        // cardLikeQuantity = res.likes.length
-        return cardLikeQuantity
+        likeButton.classList.add('card__like-button_is-active')
+        cardLikeQuantity.textContent = Number(cardLikeQuantity.textContent) + 1
       })
     }
-    else 
-      {putLikeCard(card)
-        .then((res) => {
-        console.log(res.likes.length)
-        likeCard(likeButton)
-          // res.likes.length = cardLikeQuantity
-          return cardLikeQuantity
-        })
-    }
-}
-
-
-
-
-
-
+};
 
 
 // Корзина на карточке тоько для создателя
