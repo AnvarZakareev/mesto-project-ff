@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 export {enableValidation, clearValidation};
 
@@ -117,37 +115,3 @@ function enableValidation (settings) {
   errorElement.textContent = '';
 });
 };
-=======
-=======
->>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// вызов функций enableValidation и clearValidation должен находиться в файле index.js.
-// А все другие функции, включая декларирование функции enableValidation и валидации форм,
-// — в отдельном файле validation.js.
-
-
-// включение валидации вызовом enableValidation
-// все настройки передаются при вызове
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
-
-
-// очистка ошибок валидации вызовом clearValidation
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-clearValidation(profileForm, validationConfig);
->>>>>>> 98dc585 (2321020725)
-=======
-clearValidation(profileForm, validationConfig);0
->>>>>>> 65ba5d5 (stop in julay)
-=======
-clearValidation(profileForm, validationConfig);
->>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8

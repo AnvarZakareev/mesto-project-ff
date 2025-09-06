@@ -1,3 +1,22 @@
+//В файле index.js должны остаться:
+// 1 объявления и инициализация глобальных констант и
+// переменных с DOM-элементами страницы;
+// 2 обработчики событий (при открытии и закрытии попапов;
+// при отправке форм; обработчик, открывающий попап при
+// клике по изображению карточки);
+// 3 вызовы других функций, подключённых из созданных модулей,
+// которым нужно будет передавать объявленные здесь переменные
+// и обработчики.
+
+// Код модулей должен быть написан так, чтобы их можно было
+// забрать из проекта и перенести в другой без необходимости
+// что-то менять внутри. Подумайте, какие настройки для этого
+// нужно передать аргументами.
+// Чтобы было чуточку понятнее: вызов функции создания
+// карточки должен находиться в файле index.js, но само
+// объявление функции — в card.js. Используйте директивы
+// export/import.
+
 // Импорт
 
 import './pages/index.css';
@@ -115,148 +134,87 @@ function addCard(evt) {
 
 formAddCard.addEventListener('submit', addCard);
 
+// Редактирование имени и информации о себе
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8
-// Валидация 
-
-const formElement = document.querySelector('.popup__form');
-const formInput = formElement.querySelector('.popup__input');
-const formError = formElement.querySelector(`.${formInput.id}-error`);
-
-// Функция, которая добавляет класс с ошибкой
-<<<<<<< HEAD
-
-=======
->>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8
-const showInputError = (formElement, inputElement, errorMessage) => {
-  // Находим элемент ошибки внутри самой функции
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  // console.log(errorElement)
-  // Остальной код такой же
-  inputElement.classList.add('popup__input_type_error');
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__input-error_active');
-};
-
-
-// Функция, которая удаляет класс с ошибкой
-<<<<<<< HEAD
-
-=======
->>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8
-const hideInputError = (formElement, inputElement) => {
-  // Находим элемент ошибки
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  // Остальной код такой же
-  inputElement.classList.remove('popup__input_type_error');
-  errorElement.classList.remove('form__input-error');
-  errorElement.textContent = '';
-}; 
-
-// Функция, которая проверяет валидность поля
-// formElement — html-элемент формы, в которой находится проверяемое поле ввода. Он нужен для поиска элемента ошибки в форме.
-// inputElement — проверяемое поле ввода.
-const isValid = (formElement, inputElement) => {
-  // console.log(inputElement.validity.patternMismatch)
-  if (inputElement.validity.patternMismatch) {
-    // встроенный метод setCustomValidity принимает на вход строку
-    // и заменяет ею стандартное сообщение об ошибке
-    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
-  } else {
-    // если передать пустую строку, то будут доступны
-    // стандартные браузерные сообщения
-    inputElement.setCustomValidity("");
-  }
-  if (!inputElement.validity.valid) {
-    // showInputError теперь получает параметром форму, в которой
-    // находится проверяемое поле, и само это поле
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    // hideInputError теперь получает параметром форму, в которой
-    // находится проверяемое поле, и само это поле
-    hideInputError(formElement, inputElement);
-  }
-}; 
-
-// Вызовем функцию isValid на каждый ввод символа
-// formInput.addEventListener('input', isValid(formElement, formInput)); 
-
-
-// Добавление обработчиков всем полям формы
-
-const setEventListeners = (formElement) => {
-  // Находим все поля внутри формы,
-  // сделаем из них массив методом Array.from
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  // Найдём в текущей форме кнопку отправки
-  const buttonElement = formElement.querySelector('.popup__button');
-    buttonElement.disabled = true;
-    buttonElement.classList.add('popup__button_disabled');
-  // Обойдём все элементы полученной коллекции
-  inputList.forEach((inputElement) => {
-    // каждому полю добавим обработчик события input
-    inputElement.addEventListener('input', () => {
-      // Внутри колбэка вызовем isValid,
-      // передав ей форму и проверяемый элемент
-      isValid(formElement, inputElement)
-      // Вызовем toggleButtonState и передадим ей массив полей и кнопку
-      toggleButtonState(inputList, buttonElement);
-    });
-  });
-};
-
-// Добавление обработчиков всем формам
-
-const enableValidation = () => {
-  // Найдём все формы с указанным классом в DOM,
-  // сделаем из них массив методом Array.from
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
-
-  // Переберём полученную коллекцию
-  formList.forEach((formElement) => {
-    // Для каждой формы вызовем функцию setEventListeners,
-    // передав ей элемент формы
-    setEventListeners(formElement);
-  });
-};
-
-// Вызовем функцию
-enableValidation();
-
-// Функция принимает массив полей
-
-const hasInvalidInput = (inputList) => {
-  // проходим по этому массиву методом some
-  return inputList.some((inputElement) => {
-    // Если поле не валидно, колбэк вернёт true
-    // Обход массива прекратится и вся функция
-    // hasInvalidInput вернёт true
-    return !inputElement.validity.valid;
+const formEdiProfile = document.querySelector('[name="profile"]');
+function submitFormEdiProfile(evt) {
+  evt.preventDefault();
+  const popupForm = document.forms.profile;
+  const name = popupForm.elements.name.value;
+  const description = popupForm.elements.description.value;
+  uxSavingButton (popupForm);
+  pathProfile(name, description)
+  .then ((res) => {
+    profileTitle.textContent = name;
+    profileDescription.textContent = description;
+    closeModal(formEdiProfile.parentNode.parentNode);
+    uxSavingButton (popupForm);
   })
+  .catch((err) => {
+    console.log(err);
+  });
 };
 
-// Функция принимает массив полей ввода
-// и элемент кнопки, состояние которой нужно менять
+formEdiProfile.addEventListener('submit', submitFormEdiProfile);
 
-const toggleButtonState = (inputList, buttonElement) => {
-  // Если есть хотя бы один невалидный инпут
-  if (hasInvalidInput(inputList)) {
-    // сделай кнопку неактивной
-    // console.log(buttonElement)
-    buttonElement.disabled = true;
-    buttonElement.classList.add('popup__button_disabled');
-  } else {
-    // иначе сделай кнопку активной
-    buttonElement.disabled = false;
-    buttonElement.classList.remove('popup__button_disabled');
+    //  ------
+    //  Прочее
+    //  ------
+
+// отчистка поля ввода
+
+function cleanInput(popup) {
+  const cleanArrInput = popup.querySelectorAll('.popup__input');
+  cleanArrInput.forEach((errorInput) => {
+    errorInput.value = '';
+  });
+};
+
+// Во время отправки запроса на сервер меняется текст кнопки
+
+function uxSavingButton (popupForm) {
+  const text = popupForm.querySelector('.popup__button').textContent;
+  if (text == 'Сохранить') {
+    popupForm.querySelector('.popup__button').textContent = 'Сохранение...';
   }
-<<<<<<< HEAD
+  else {
+    popupForm.querySelector('.popup__button').textContent = 'Сохранить';
+}};
+
+// Настройки валидации
+
+enableValidation(
+  {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  inputErrorActive: 'popup__input-error_active',
+});
+
+const validationConfig ={
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  inputErrorClass: 'popup__input_type_error',
+  inputErrorActive: 'popup__input-error_active',
+  submitButtonSelector: '.popup__button',
 };
->>>>>>> d9e4fc3 (002903072025)
-=======
-};
->>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8
+      
+// Создаём массив с промисами
+// Загрузка информации о пользователе с сервера
+// Загрузка карточек с сервера
+
+const getAll = [getUser(), getInitialCards()];
+
+Promise.all(getAll)
+  .then((result) => {
+    profileTitle.textContent = result[0].name;
+    profileDescription.textContent = result[0].about;
+    profileAvatar.style.backgroundImage = `url(${result[0].avatar})`;
+    const userId = result[0]._id;
+    result[1].forEach((cardData) => {
+      const cardElement = createCard(cardData, handleImageClick, userId);
+      placesList.append(cardElement);
+    })
+});
