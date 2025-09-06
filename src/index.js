@@ -143,7 +143,7 @@ function submitFormEdiProfile(evt) {
   const name = popupForm.elements.name.value;
   const description = popupForm.elements.description.value;
   uxSavingButton (popupForm);
-  pathProfile(name, description);
+  pathProfile(name, description)
   .then ((res) => {
     profileTitle.textContent = name;
     profileDescription.textContent = description;
@@ -214,11 +214,7 @@ Promise.all(getAll)
     profileAvatar.style.backgroundImage = `url(${result[0].avatar})`;
     const userId = result[0]._id;
     result[1].forEach((cardData) => {
-
       const cardElement = createCard(cardData, handleImageClick, userId);
       placesList.append(cardElement);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+    })
 });
