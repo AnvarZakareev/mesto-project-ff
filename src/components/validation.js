@@ -111,6 +111,7 @@ function enableValidation (settings) {
   inputList.forEach((inputElement) => {
 //   // Находим элемент ошибки
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    // console.log(errorElement)
   inputElement.classList.remove(validationConfig.inputErrorClass);
 //   // Скрываем сообщение об ошибке
   errorElement.classList.remove(validationConfig.inputErrorActive);

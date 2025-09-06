@@ -24,7 +24,7 @@ import './pages/index.css';
 import {createCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
 import {enableValidation, clearValidation} from './components/validation.js';
-import {getUser, getInitialCards, pathProfile, pathCard} from './components/api.js'
+import {getUser, getInitialCards, pathProfile, pathCard, pathAvatar} from './components/api.js'
 
 
 // Oбъявления и инициализация глобальных констант и
@@ -40,10 +40,17 @@ const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
 const profileAvatar = document.querySelector('.profile__image')
 const popupAvatar = document.querySelector('.popup_type_avatar')
+const popupinputAvatar = document.querySelector('.popup__input_type_url')
 const popupName = document.querySelector('.popup__input_type_name');
 const popupDescription = document.querySelector('.popup__input_type_description');
 
-// открытие окон попапов
+ 
+    // ---------------------  
+    // открытие окон попапов
+    // ---------------------
+    
+    
+// Редактирование информации о себе
 
 profileEdit.addEventListener('click', () => {
   popupName.value = profileTitle.textContent;
@@ -51,51 +58,48 @@ profileEdit.addEventListener('click', () => {
   openModal(popupEdit)
   clearValidation(popupEdit, validationConfig)
 });
+    
+// Добавление новой карточки
 
-profileAdd.addEventListener('click', () => openModal(formAddCard) 
-);
-
-profileAdd.addEventListener('click', () => clearValidation(formAddCard, validationConfig)
-);
+profileAdd.addEventListener('click', () => {
+  openModal(formAddCard) 
+  clearValidation(formAddCard, validationConfig)
+  cleanInput(formAddCard)
+});
 
 // Обновление аватара пользователя
 
-profileAvatar.addEventListener('click', () => openModal(popupAvatar))
+profileAvatar.addEventListener('click', () => {
+  openModal(popupAvatar)
+  clearValidation(popupAvatar, validationConfig)
+  cleanInput(popupAvatar)
+})
 
-// отчистка поля ввода
+    // ---------------------
+    // Изменения на странице
+    // ---------------------
 
-// function cleanInput(popup) {
-//   const cleanArrInput = popup.querySelectorAll('.popup__input')
-//   cleanArrInput.forEach((errorInput) => {
-//     errorInput.value = ''
-//   })
-// }
+    
+// Обновление аватара пользователя
+    
+const formEditAvatar = document.querySelector('[name="edit-avatar"]');
 
-function handleImageClick(link, alt, name) {
-  const image = document.querySelector('.popup__image');
-  image.src = link;
-  image.alt = alt;
-  const caption = document.querySelector('.popup__caption');
-  caption.textContent = name;
-  // clearValidation(popup, validationConfig)
-  openModal(popupImage);
+function editAvatar (evt){
+// отмена сдандартного поведения формы
+evt.preventDefault()
+const x = document.forms.avatar
+const newUrl = x.elements.avatar;
+console.log(newUrl.value)
+// console.log(popupinputAvatar.value)
+
+//   pathAvatar()
+//     .then((res) => {
+//       console.log(res)
+//     })
 }
 
+popupAvatar.addEventListener('submit', editAvatar)
 
-// Редактирование имени и информации о себе
-
-const formEdiProfile = document.querySelector('[name="edit-profile"]');
-function submitFormEdiProfile(evt) {
-  evt.preventDefault();
-  profileTitle.textContent = popupName.value;
-  profileDescription.textContent = popupDescription.value;
-  closeModal(formEdiProfile.parentNode.parentNode);
-  // Редактирование профиля
-  pathProfile(popupName.value, popupDescription.value);
-}
-
-
-formEdiProfile.addEventListener('submit', submitFormEdiProfile);
 
 
 // Добавление карточки
@@ -122,7 +126,48 @@ function addCard(evt) {
 
 formAddCard.addEventListener('submit', addCard);
 
+// Редактирование имени и информации о себе
+
+const formEdiProfile = document.querySelector('[name="edit-profile"]');
+function submitFormEdiProfile(evt) {
+  evt.preventDefault();
+  profileTitle.textContent = popupName.value;
+  profileDescription.textContent = popupDescription.value;
+  closeModal(formEdiProfile.parentNode.parentNode);
+  // Редактирование профиля
+  // console.log(popupName)
+  // console.log(popupName.value)
+  pathProfile(popupName.value, popupDescription.value);
+}
+
+formEdiProfile.addEventListener('submit', submitFormEdiProfile);
+
+// отчистка поля ввода
+
+function cleanInput(popup) {
+  const cleanArrInput = popup.querySelectorAll('.popup__input')
+  // console.log(cleanArrInput)
+  cleanArrInput.forEach((errorInput) => {
+    errorInput.value = ''
+  })
+}
+
+function handleImageClick(link, alt, name) {
+  const image = document.querySelector('.popup__image');
+  image.src = link;
+  image.alt = alt;
+  const caption = document.querySelector('.popup__caption');
+  caption.textContent = name;
+  // clearValidation(popup, validationConfig)
+  openModal(popupImage);
+}
+
+
+
+
+
 // включение валидации вызовом enableValidation (все настройки передаются при вызове)
+// Настройки валидации
 
 enableValidation(
   {
@@ -133,8 +178,6 @@ enableValidation(
   inputErrorClass: 'popup__input_type_error',
   inputErrorActive: 'popup__input-error_active',
 });
-
-// Настройки валидации
 
 const validationConfig ={
   formSelector: '.popup__form',

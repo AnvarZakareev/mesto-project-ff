@@ -97,9 +97,6 @@
         class="popup__input popup__input_type_url" 
         placeholder="Ссылка на картинку"
         required>
-        <!-- minlength="2"
-        maxlength="40"
-        pattern="^[a-zA-Z]+$" -->
         <span class="link-input-error popup__input-error"></span>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
@@ -122,21 +119,23 @@
     <div class="popup__content popup__content_avatar">
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Обновить аватар</h3>
-      <form class="popup__form" name="edit-profile"
+      <form class="popup__form" name="avatar"
       novalidate>
       <input 
       type="url" 
-      name="link" 
-      id="link-input"
+      name="avatar" 
+      id="avatar-input"
       class="popup__input popup__input_type_url" 
       placeholder="Ссылка на аватар"
       required>
-      <span class="description-input-error popup__input-error"></span>
+      <span class="avatar-input-error popup__input-error"></span>
       <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
   </div>
 </div>
+
+
 
 <template id="card-template">
   <li class="places__item card">
