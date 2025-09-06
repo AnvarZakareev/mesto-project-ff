@@ -59,21 +59,27 @@ function fierstLike(card, userId, likeButton) {
 function likeCard(card, likeButton, cardLikeQuantity)
 {
   if (likeButton.classList.contains('card__like-button_is-active'))
-    {
-      deleteLikeCard(card)
-      .then((res) => {
-        likeButton.classList.remove('card__like-button_is-active')
-        cardLikeQuantity.textContent = Number(cardLikeQuantity.textContent) - 1
-      })
-    }
+  {
+    deleteLikeCard(card)
+    .then((res) => {
+      likeButton.classList.remove('card__like-button_is-active')
+      cardLikeQuantity.textContent = Number(cardLikeQuantity.textContent) - 1
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
   else 
-    {
-      putLikeCard(card)
-      .then((res) => {
-        likeButton.classList.add('card__like-button_is-active')
-        cardLikeQuantity.textContent = Number(cardLikeQuantity.textContent) + 1
-      })
-    }
+  {
+    putLikeCard(card)
+    .then((res) => {
+      likeButton.classList.add('card__like-button_is-active')
+      cardLikeQuantity.textContent = Number(cardLikeQuantity.textContent) + 1
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 };
 
 
@@ -103,6 +109,9 @@ function deleteConfirm (card, cardElement) {
       deleteCard(cardElement)
         // console.log(res)
       })
+    .catch((err) => {
+      console.log(err);
+    })
   })
   // cardDeleteButton.addEventListener("click", () => {
   // })

@@ -99,10 +99,13 @@ function editAvatar (evt){
   uxSavingButton (popupForm)
   pathAvatar(url)
   .then((res) => {
-      profileAvatar.style.backgroundImage = `url(${res.avatar})`
-      closeModal(popupAvatar)
-      uxSavingButton (popupForm)
-    })
+    profileAvatar.style.backgroundImage = `url(${res.avatar})`
+    closeModal(popupAvatar)
+    uxSavingButton (popupForm)
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 }
 
 // popupAvatar.addEventListener('submit', uxSavingButton)
@@ -141,6 +144,9 @@ function addCard(evt) {
     closeModal(formAddCard);
     uxSavingButton (popupForm)
   })
+  .catch((err) => {
+    console.log(err);
+  })
 }
 
 formAddCard.addEventListener('submit', addCard);
@@ -160,6 +166,9 @@ function submitFormEdiProfile(evt) {
     profileDescription.textContent = description;
     closeModal(formEdiProfile.parentNode.parentNode);
     uxSavingButton (popupForm)
+  })
+  .catch((err) => {
+    console.log(err);
   })
 }
 
@@ -216,6 +225,9 @@ Promise.all(getAll)
 
       const cardElement = createCard(cardData, handleImageClick, userId)
       placesList.append(cardElement);
-    })
   })
+  .catch((err) => {
+    console.log(err);
+  })
+})
 
