@@ -1,1 +1,4 @@
-https://anvarzakareev.github.io/mesto-project-ff/
+Учебный проект в рамках курса «Фронтенд-разработчик» от Яндекс практикум.
+Цель проекта: закрепление навыков работы с API
+Ссылка на страницу https://anvarzakareev.github.io/mesto-project-ff/
+Статус проекта: отправлен на ревю...
