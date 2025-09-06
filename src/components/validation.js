@@ -101,9 +101,9 @@ function enableValidation (settings) {
 // очистка ошибок валидации вызовом clearValidation
   function clearValidation (profileForm, validationConfig) {
 //   // Находим все поля внутри формы
-  const formElement = profileForm.querySelector(validationConfig.formSelector)
+  const formElement = profileForm.querySelector(validationConfig.formSelector);
 //   // сделаем из них массив методом Array.from
-  const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector))
+  const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
 //   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {
 //   // Находим элемент ошибки
@@ -113,5 +113,5 @@ function enableValidation (settings) {
   errorElement.classList.remove(validationConfig.inputErrorActive);
 //   // Очистим ошибку
   errorElement.textContent = '';
-})
-}
+});
+};

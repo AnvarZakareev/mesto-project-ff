@@ -2,8 +2,8 @@ export {createCard};
 import {openModal, closeModal } from "./modal";
 import {deleteCardApi, putLikeCard, deleteLikeCard} from "./api";
 
-const cardTemplate = document.querySelector('#card-template')
-const popupConfirm = document.querySelector('.popup__confirm')
+const cardTemplate = document.querySelector('#card-template');
+const popupConfirm = document.querySelector('.popup__confirm');
 
 
 // Создание карточки
@@ -11,7 +11,7 @@ const popupConfirm = document.querySelector('.popup__confirm')
 function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard) { 
   const cardTemplateContent = cardTemplate.content;
   const cardElement = cardTemplateContent.querySelector('.places__item').cloneNode(true);
-  let cardLikeQuantity = cardElement.querySelector('.card__like-quantity')
+  let cardLikeQuantity = cardElement.querySelector('.card__like-quantity');
   // Функционал клонирования шаблона карточки рекомендуется вынести в отдельную функцию getCardTemplate,
   // чтобы сделать код более декларативным и переиспользуемым.
   cardElement.querySelector('.card__image').src = card.link;
@@ -22,7 +22,7 @@ function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard
   myBasket (userId, card, cardDeleteButton, cardElement);
   const cardImage = cardElement.querySelector('.card__image');
   cardImage.addEventListener("click", () => {
-    handleImageClick(card.link, card.alt, card.name)
+    handleImageClick(card.link, card.alt, card.name);
   });
   const likeButton = cardElement.querySelector('.card__like-button');
   fierstLike(card, userId, likeButton);
@@ -38,21 +38,21 @@ function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard
 function isMyLike(card, userId) {
   if (card.likes.find(like => like._id == userId)) 
     {
-      return true
+      return true;
     }
     else 
       {
-      return false
-    }
-}
+      return false;
+    };
+};
 
 // Проверка лайков при загрузке
 
 function fierstLike(card, userId, likeButton) {
   if (isMyLike(card, userId)) {
       likeButton.classList.add('card__like-button_is-active')
-  }
-}
+  };
+};
 
 // постановка снятие лайка и счетчик лайков
 
@@ -62,24 +62,24 @@ function likeCard(card, likeButton, cardLikeQuantity)
   {
     deleteLikeCard(card)
     .then((res) => {
-      likeButton.classList.remove('card__like-button_is-active')
-      cardLikeQuantity.textContent = Number(cardLikeQuantity.textContent) - 1
+      likeButton.classList.remove('card__like-button_is-active');
+      cardLikeQuantity.textContent = Number(cardLikeQuantity.textContent) - 1;
     })
     .catch((err) => {
       console.log(err);
-    })
+    });
   }
   else 
   {
     putLikeCard(card)
     .then((res) => {
-      likeButton.classList.add('card__like-button_is-active')
-      cardLikeQuantity.textContent = Number(cardLikeQuantity.textContent) + 1
+      likeButton.classList.add('card__like-button_is-active');
+      cardLikeQuantity.textContent = Number(cardLikeQuantity.textContent) + 1;
     })
     .catch((err) => {
       console.log(err);
-    })
-  }
+    });
+  };
 };
 
 
@@ -93,19 +93,19 @@ function myBasket (userId, card, cardDeleteButton, cardElement) {
   }
   else {
     cardDeleteButton.style.display = 'none';
-  }
-}
+  };
+};
 
 // Подтверждение удаления
 
 function deleteConfirm (card, cardElement) {
-  openModal(popupConfirm)
-  const cardDeleteButton = popupConfirm.querySelector('.popup__button')
+  openModal(popupConfirm);
+  const cardDeleteButton = popupConfirm.querySelector('.popup__button');
   cardDeleteButton.addEventListener("click", () => {
     deleteCardApi(card)
     .then ((res) => {
-      closeModal(popupConfirm)
-      deleteCard(cardElement)
+      closeModal(popupConfirm);
+      deleteCard(cardElement);
       })
     .catch((err) => {
       console.log(err);

@@ -1,4 +1,4 @@
-export {getUser, getInitialCards, pathProfile, pathCard, deleteCardApi, putLikeCard, deleteLikeCard, pathAvatar}
+export {getUser, getInitialCards, pathProfile, pathCard, deleteCardApi, putLikeCard, deleteLikeCard, pathAvatar};
 
 // Все запросы присвойте переменным
 
@@ -8,7 +8,7 @@ const config = {
     authorization: '3ad95690-ba9a-4d17-9a66-c1e37bacbfe2',
     'Content-Type': 'application/json'
   }
-}
+};
 
 // Загрузка информации о пользователе с сервера
 
@@ -25,7 +25,7 @@ const getUser = () => {
     })
     .then((result) => {
     return result
-  });}
+  });};
 
 // Загрузка карточек с сервера
 
@@ -39,7 +39,7 @@ const getInitialCards = () => {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
     });
-} 
+};
 
 // Обновление аватара пользователя
 
@@ -56,7 +56,7 @@ const pathAvatar = (url) => {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
 });
-}
+};
 
 // Редактирование профиля
 
@@ -74,7 +74,7 @@ const pathProfile = (name, about) => {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
   });
-}
+};
 
 // Добавление новой карточки
 
@@ -92,7 +92,7 @@ const pathCard = (name, link) => {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   });
-}
+};
 
 // Удаление карточки
 
@@ -107,7 +107,7 @@ const deleteCardApi = (card) => {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   });
-}
+};
 
 // Постановка лайка
 
@@ -122,7 +122,7 @@ const putLikeCard = (card) => {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   });
-}
+};
 
 // Cнятие лайка
 
@@ -137,4 +137,4 @@ const deleteLikeCard = (card) => {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   });
-}
+};

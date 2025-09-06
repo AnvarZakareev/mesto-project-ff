@@ -23,7 +23,7 @@ import './pages/index.css';
 import {createCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
 import {enableValidation, clearValidation} from './components/validation.js';
-import {getUser, getInitialCards, pathProfile, pathCard, pathAvatar} from './components/api.js'
+import {getUser, getInitialCards, pathProfile, pathCard, pathAvatar} from './components/api.js';
 
 
 // Oбъявления и инициализация глобальных констант и
@@ -37,8 +37,8 @@ const formAddCard = document.querySelector('.popup_type_new-card');
 const popupImage = document.querySelector('.popup_type_image');
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
-const profileAvatar = document.querySelector('.profile__image')
-const popupAvatar = document.querySelector('.popup_type_avatar')
+const profileAvatar = document.querySelector('.profile__image');
+const popupAvatar = document.querySelector('.popup_type_avatar');
 const popupName = document.querySelector('.popup__input_type_name');
 const popupDescription = document.querySelector('.popup__input_type_description');
 
@@ -52,25 +52,25 @@ const popupDescription = document.querySelector('.popup__input_type_description'
 profileEdit.addEventListener('click', () => {
   popupName.value = profileTitle.textContent;
   popupDescription.value = profileDescription.textContent;
-  openModal(popupEdit)
-  clearValidation(popupEdit, validationConfig)
+  openModal(popupEdit);
+  clearValidation(popupEdit, validationConfig);
 });
     
 // Добавление новой карточки
 
 profileAdd.addEventListener('click', () => {
-  openModal(formAddCard) 
-  clearValidation(formAddCard, validationConfig)
-  cleanInput(formAddCard)
+  openModal(formAddCard);
+  clearValidation(formAddCard, validationConfig);
+  cleanInput(formAddCard);
 });
 
 // Обновление аватара пользователя
 
 profileAvatar.addEventListener('click', () => {
-  openModal(popupAvatar)
-  clearValidation(popupAvatar, validationConfig)
-  cleanInput(popupAvatar)
-})
+  openModal(popupAvatar);
+  clearValidation(popupAvatar, validationConfig);
+  cleanInput(popupAvatar);
+});
 
 // открытие окна просмотра карточки
 
@@ -81,7 +81,7 @@ function handleImageClick(link, alt, name) {
   const caption = document.querySelector('.popup__caption');
   caption.textContent = name;
   openModal(popupImage);
-}
+};
 
     // ---------------------
     // Изменения на странице
@@ -91,20 +91,20 @@ function handleImageClick(link, alt, name) {
 // Обновление аватара пользователя
     
 function editAvatar (evt){
-  evt.preventDefault()
-  const popupForm = document.forms.avatar
+  evt.preventDefault();
+  const popupForm = document.forms.avatar;
   const url = popupForm.elements.avatar.value;
-  uxSavingButton (popupForm)
+  uxSavingButton (popupForm);
   pathAvatar(url)
   .then((res) => {
-    profileAvatar.style.backgroundImage = `url(${res.avatar})`
-    closeModal(popupAvatar)
-    uxSavingButton (popupForm)
+    profileAvatar.style.backgroundImage = `url(${res.avatar})`;
+    closeModal(popupAvatar);
+    uxSavingButton (popupForm);
   })
   .catch((err) => {
     console.log(err);
-  })
-}
+  });
+};
 
 popupAvatar.addEventListener('submit', editAvatar)
 
@@ -118,19 +118,19 @@ function addCard(evt) {
   const newCard = {};
   newCard.name = name.value;
   newCard.link = link.value;
-  uxSavingButton (popupForm)
+  uxSavingButton (popupForm);
   pathCard(name.value, link.value)
   .then ((res) => {
-    const cardElement = createCard(res, handleImageClick)
-    placesList.prepend(cardElement)
+    const cardElement = createCard(res, handleImageClick);
+    placesList.prepend(cardElement);
     popupForm.reset();
     closeModal(formAddCard);
-    uxSavingButton (popupForm)
+    uxSavingButton (popupForm);
   })
   .catch((err) => {
     console.log(err);
-  })
-}
+  });
+};
 
 formAddCard.addEventListener('submit', addCard);
 
@@ -139,21 +139,21 @@ formAddCard.addEventListener('submit', addCard);
 const formEdiProfile = document.querySelector('[name="profile"]');
 function submitFormEdiProfile(evt) {
   evt.preventDefault();
-  const popupForm = document.forms.profile
-  const name = popupForm.elements.name.value
-  const description = popupForm.elements.description.value
-  uxSavingButton (popupForm)
-  pathProfile(name, description)
+  const popupForm = document.forms.profile;
+  const name = popupForm.elements.name.value;
+  const description = popupForm.elements.description.value;
+  uxSavingButton (popupForm);
+  pathProfile(name, description);
   .then ((res) => {
     profileTitle.textContent = name;
     profileDescription.textContent = description;
     closeModal(formEdiProfile.parentNode.parentNode);
-    uxSavingButton (popupForm)
+    uxSavingButton (popupForm);
   })
   .catch((err) => {
     console.log(err);
-  })
-}
+  });
+};
 
 formEdiProfile.addEventListener('submit', submitFormEdiProfile);
 
@@ -164,22 +164,22 @@ formEdiProfile.addEventListener('submit', submitFormEdiProfile);
 // отчистка поля ввода
 
 function cleanInput(popup) {
-  const cleanArrInput = popup.querySelectorAll('.popup__input')
+  const cleanArrInput = popup.querySelectorAll('.popup__input');
   cleanArrInput.forEach((errorInput) => {
-    errorInput.value = ''
-  })
-}
+    errorInput.value = '';
+  });
+};
 
 // Во время отправки запроса на сервер меняется текст кнопки
 
 function uxSavingButton (popupForm) {
-  const text = popupForm.querySelector('.popup__button').textContent
+  const text = popupForm.querySelector('.popup__button').textContent;
   if (text == 'Сохранить') {
     popupForm.querySelector('.popup__button').textContent = 'Сохранение...';
   }
   else {
     popupForm.querySelector('.popup__button').textContent = 'Сохранить';
-}}
+}};
 
 // Настройки валидации
 
@@ -199,26 +199,26 @@ const validationConfig ={
   inputErrorClass: 'popup__input_type_error',
   inputErrorActive: 'popup__input-error_active',
   submitButtonSelector: '.popup__button',
-}
+};
       
 // Создаём массив с промисами
 // Загрузка информации о пользователе с сервера
 // Загрузка карточек с сервера
 
-const getAll = [getUser(), getInitialCards()]
+const getAll = [getUser(), getInitialCards()];
 
 Promise.all(getAll)
   .then((result) => {
-    profileTitle.textContent = result[0].name ;
+    profileTitle.textContent = result[0].name;
     profileDescription.textContent = result[0].about;
     profileAvatar.style.backgroundImage = `url(${result[0].avatar})`;
     const userId = result[0]._id;
     result[1].forEach((cardData) => {
 
-      const cardElement = createCard(cardData, handleImageClick, userId)
+      const cardElement = createCard(cardData, handleImageClick, userId);
       placesList.append(cardElement);
   })
   .catch((err) => {
     console.log(err);
-  })
-})
+  });
+});
