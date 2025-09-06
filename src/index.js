@@ -96,14 +96,28 @@ function editAvatar (evt){
   evt.preventDefault()
   const popupForm = document.forms.avatar
   const url = popupForm.elements.avatar.value;
+  uxSavingButton (popupForm)
   pathAvatar(url)
-    .then((res) => {
+  .then((res) => {
       profileAvatar.style.backgroundImage = `url(${res.avatar})`
+      closeModal(popupAvatar)
+      uxSavingButton (popupForm)
     })
-  closeModal(popupAvatar)
 }
 
+// popupAvatar.addEventListener('submit', uxSavingButton)
 popupAvatar.addEventListener('submit', editAvatar)
+
+// Во время отправки запроса на сервер меняется текст кнопки
+
+function uxSavingButton (popupForm) {
+  const text = popupForm.querySelector('.popup__button').textContent
+if (text == 'Сохранить') {
+  popupForm.querySelector('.popup__button').textContent = 'Сохранение...';
+}
+else {
+  popupForm.querySelector('.popup__button').textContent = 'Сохранить';
+}}
 
 // Добавление карточки
 
@@ -116,15 +130,17 @@ function addCard(evt) {
   newCard.name = name.value;
   newCard.link = link.value;
   // Добавление новой карточки
+  uxSavingButton (popupForm)
   pathCard(name.value, link.value)
   .then ((res) => {
     // console.log(res)
     const cardElement = createCard(res, handleImageClick)
     // placesList.append(cardElement)
     placesList.prepend(cardElement)
+    popupForm.reset();
+    closeModal(formAddCard);
+    uxSavingButton (popupForm)
   })
-  popupForm.reset();
-  closeModal(formAddCard);
 }
 
 formAddCard.addEventListener('submit', addCard);
@@ -137,11 +153,13 @@ function submitFormEdiProfile(evt) {
   const popupForm = document.forms.profile
   const name = popupForm.elements.name.value
   const description = popupForm.elements.description.value
+  uxSavingButton (popupForm)
   pathProfile(name, description)
   .then ((res) => {
     profileTitle.textContent = name;
     profileDescription.textContent = description;
     closeModal(formEdiProfile.parentNode.parentNode);
+    uxSavingButton (popupForm)
   })
 }
 

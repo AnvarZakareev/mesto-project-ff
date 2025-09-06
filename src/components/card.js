@@ -97,15 +97,15 @@ function deleteConfirm (card, cardElement) {
   const cardDeleteButton = popupConfirm.querySelector('.popup__button')
   cardDeleteButton.addEventListener("click", () => {
     // console.log(card)
-    closeModal(popupConfirm)
-    deleteCard(cardElement)
     deleteCardApi(card)
-    // .then ((res) => {
-    //     // console.log(res)
-    //   })
+    .then ((res) => {
+      closeModal(popupConfirm)
+      deleteCard(cardElement)
+        // console.log(res)
+      })
   })
-  cardDeleteButton.addEventListener("click", () => {
-  })
+  // cardDeleteButton.addEventListener("click", () => {
+  // })
 }
 
 // Удаление со страницы
