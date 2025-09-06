@@ -40,7 +40,6 @@ const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
 const profileAvatar = document.querySelector('.profile__image')
 const popupAvatar = document.querySelector('.popup_type_avatar')
-const popupinputAvatar = document.querySelector('.popup__input_type_url')
 const popupName = document.querySelector('.popup__input_type_name');
 const popupDescription = document.querySelector('.popup__input_type_description');
 
@@ -82,25 +81,18 @@ profileAvatar.addEventListener('click', () => {
     
 // Обновление аватара пользователя
     
-const formEditAvatar = document.querySelector('[name="edit-avatar"]');
-
 function editAvatar (evt){
-// отмена сдандартного поведения формы
-evt.preventDefault()
-const x = document.forms.avatar
-const newUrl = x.elements.avatar;
-console.log(newUrl.value)
-// console.log(popupinputAvatar.value)
-
-//   pathAvatar()
-//     .then((res) => {
-//       console.log(res)
-//     })
+  evt.preventDefault()
+  const popupForm = document.forms.avatar
+  const url = popupForm.elements.avatar.value;
+  pathAvatar(url)
+    .then((res) => {
+      profileAvatar.style.backgroundImage = `url(${res.avatar})`
+    })
+  closeModal(popupAvatar)
 }
 
 popupAvatar.addEventListener('submit', editAvatar)
-
-
 
 // Добавление карточки
 
@@ -134,9 +126,6 @@ function submitFormEdiProfile(evt) {
   profileTitle.textContent = popupName.value;
   profileDescription.textContent = popupDescription.value;
   closeModal(formEdiProfile.parentNode.parentNode);
-  // Редактирование профиля
-  // console.log(popupName)
-  // console.log(popupName.value)
   pathProfile(popupName.value, popupDescription.value);
 }
 
@@ -161,10 +150,6 @@ function handleImageClick(link, alt, name) {
   // clearValidation(popup, validationConfig)
   openModal(popupImage);
 }
-
-
-
-
 
 // включение валидации вызовом enableValidation (все настройки передаются при вызове)
 // Настройки валидации
