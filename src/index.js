@@ -48,7 +48,6 @@ const popupDescription = document.querySelector('.popup__input_type_description'
     // открытие окон попапов
     // ---------------------
     
-    
 // Редактирование информации о себе
 
 profileEdit.addEventListener('click', () => {
@@ -73,6 +72,18 @@ profileAvatar.addEventListener('click', () => {
   clearValidation(popupAvatar, validationConfig)
   cleanInput(popupAvatar)
 })
+
+// открытие окна просмотра карточки
+
+function handleImageClick(link, alt, name) {
+  const image = document.querySelector('.popup__image');
+  image.src = link;
+  image.alt = alt;
+  const caption = document.querySelector('.popup__caption');
+  caption.textContent = name;
+  // clearValidation(popup, validationConfig)
+  openModal(popupImage);
+}
 
     // ---------------------
     // Изменения на странице
@@ -120,16 +131,25 @@ formAddCard.addEventListener('submit', addCard);
 
 // Редактирование имени и информации о себе
 
-const formEdiProfile = document.querySelector('[name="edit-profile"]');
+const formEdiProfile = document.querySelector('[name="profile"]');
 function submitFormEdiProfile(evt) {
   evt.preventDefault();
-  profileTitle.textContent = popupName.value;
-  profileDescription.textContent = popupDescription.value;
-  closeModal(formEdiProfile.parentNode.parentNode);
-  pathProfile(popupName.value, popupDescription.value);
+  const popupForm = document.forms.profile
+  const name = popupForm.elements.name.value
+  const description = popupForm.elements.description.value
+  pathProfile(name, description)
+  .then ((res) => {
+    profileTitle.textContent = name;
+    profileDescription.textContent = description;
+    closeModal(formEdiProfile.parentNode.parentNode);
+  })
 }
 
 formEdiProfile.addEventListener('submit', submitFormEdiProfile);
+
+    //  ------
+    //  Прочее
+    //  ------
 
 // отчистка поля ввода
 
@@ -139,16 +159,6 @@ function cleanInput(popup) {
   cleanArrInput.forEach((errorInput) => {
     errorInput.value = ''
   })
-}
-
-function handleImageClick(link, alt, name) {
-  const image = document.querySelector('.popup__image');
-  image.src = link;
-  image.alt = alt;
-  const caption = document.querySelector('.popup__caption');
-  caption.textContent = name;
-  // clearValidation(popup, validationConfig)
-  openModal(popupImage);
 }
 
 // включение валидации вызовом enableValidation (все настройки передаются при вызове)
