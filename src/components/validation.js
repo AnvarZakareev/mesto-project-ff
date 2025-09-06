@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 export {enableValidation, clearValidation};
 
@@ -117,6 +118,8 @@ function enableValidation (settings) {
 });
 };
 =======
+=======
+>>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // вызов функций enableValidation и clearValidation должен находиться в файле index.js.
 // А все другие функции, включая декларирование функции enableValidation и валидации форм,
@@ -139,8 +142,12 @@ enableValidation({
 // очистка ошибок валидации вызовом clearValidation
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 clearValidation(profileForm, validationConfig);
 >>>>>>> 98dc585 (2321020725)
 =======
 clearValidation(profileForm, validationConfig);0
 >>>>>>> 65ba5d5 (stop in julay)
+=======
+clearValidation(profileForm, validationConfig);
+>>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8

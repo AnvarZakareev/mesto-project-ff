@@ -22,6 +22,7 @@
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .popup__input:invalid {
   border-bottom: 1px solid rgb(255, 0, 0);
 }
@@ -34,6 +35,8 @@
 .popup__input-error_active {
   color: red;
 =======
+=======
+>>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8
 .popup__input_type_error {
   border-bottom: red solid 1px;
 }
@@ -44,9 +47,13 @@
 
 .popup__input-error_active {
 <<<<<<< HEAD
+<<<<<<< HEAD
   color: blueviolet;
 >>>>>>> 98dc585 (2321020725)
 =======
   color: green;
 >>>>>>> d9e4fc3 (002903072025)
+=======
+  color: green;
+>>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8
 }

@@ -136,7 +136,10 @@ formAddCard.addEventListener('submit', addCard);
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8
 // Валидация 
 
 const formElement = document.querySelector('.popup__form');
@@ -144,7 +147,10 @@ const formInput = formElement.querySelector('.popup__input');
 const formError = formElement.querySelector(`.${formInput.id}-error`);
 
 // Функция, которая добавляет класс с ошибкой
+<<<<<<< HEAD
 
+=======
+>>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8
 const showInputError = (formElement, inputElement, errorMessage) => {
   // Находим элемент ошибки внутри самой функции
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -157,7 +163,10 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 
 
 // Функция, которая удаляет класс с ошибкой
+<<<<<<< HEAD
 
+=======
+>>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8
 const hideInputError = (formElement, inputElement) => {
   // Находим элемент ошибки
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -264,5 +273,9 @@ const toggleButtonState = (inputList, buttonElement) => {
     buttonElement.disabled = false;
     buttonElement.classList.remove('popup__button_disabled');
   }
+<<<<<<< HEAD
 };
 >>>>>>> d9e4fc3 (002903072025)
+=======
+};
+>>>>>>> 60ec5775f48464c4cd63f87ab89af3c5ce56c2d8
