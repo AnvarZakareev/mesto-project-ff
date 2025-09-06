@@ -20,7 +20,6 @@
 // Импорт
 
 import './pages/index.css';
-// import {initialCards} from './scripts/cards.js';
 import {createCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
 import {enableValidation, clearValidation} from './components/validation.js';
@@ -81,7 +80,6 @@ function handleImageClick(link, alt, name) {
   image.alt = alt;
   const caption = document.querySelector('.popup__caption');
   caption.textContent = name;
-  // clearValidation(popup, validationConfig)
   openModal(popupImage);
 }
 
@@ -108,19 +106,7 @@ function editAvatar (evt){
   })
 }
 
-// popupAvatar.addEventListener('submit', uxSavingButton)
 popupAvatar.addEventListener('submit', editAvatar)
-
-// Во время отправки запроса на сервер меняется текст кнопки
-
-function uxSavingButton (popupForm) {
-  const text = popupForm.querySelector('.popup__button').textContent
-if (text == 'Сохранить') {
-  popupForm.querySelector('.popup__button').textContent = 'Сохранение...';
-}
-else {
-  popupForm.querySelector('.popup__button').textContent = 'Сохранить';
-}}
 
 // Добавление карточки
 
@@ -132,13 +118,10 @@ function addCard(evt) {
   const newCard = {};
   newCard.name = name.value;
   newCard.link = link.value;
-  // Добавление новой карточки
   uxSavingButton (popupForm)
   pathCard(name.value, link.value)
   .then ((res) => {
-    // console.log(res)
     const cardElement = createCard(res, handleImageClick)
-    // placesList.append(cardElement)
     placesList.prepend(cardElement)
     popupForm.reset();
     closeModal(formAddCard);
@@ -182,13 +165,22 @@ formEdiProfile.addEventListener('submit', submitFormEdiProfile);
 
 function cleanInput(popup) {
   const cleanArrInput = popup.querySelectorAll('.popup__input')
-  // console.log(cleanArrInput)
   cleanArrInput.forEach((errorInput) => {
     errorInput.value = ''
   })
 }
 
-// включение валидации вызовом enableValidation (все настройки передаются при вызове)
+// Во время отправки запроса на сервер меняется текст кнопки
+
+function uxSavingButton (popupForm) {
+  const text = popupForm.querySelector('.popup__button').textContent
+  if (text == 'Сохранить') {
+    popupForm.querySelector('.popup__button').textContent = 'Сохранение...';
+  }
+  else {
+    popupForm.querySelector('.popup__button').textContent = 'Сохранить';
+}}
+
 // Настройки валидации
 
 enableValidation(
@@ -230,4 +222,3 @@ Promise.all(getAll)
     console.log(err);
   })
 })
-

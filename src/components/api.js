@@ -13,7 +13,6 @@ const config = {
 // Загрузка информации о пользователе с сервера
 
 const getUser = () => {
-    // console.log(`${config.baseUrl}/users/me`)}
   return fetch(`${config.baseUrl}/users/me`, {
       headers: config.headers
   })
@@ -53,7 +52,6 @@ const pathAvatar = (url) => {
     })
     .then(res => {
       if (res.ok) {
-        // console.log(url)
         return res.json();
       }
       return Promise.reject(`Ошибка: ${res.status}`);

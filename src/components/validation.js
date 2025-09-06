@@ -100,9 +100,6 @@ function enableValidation (settings) {
 
 // очистка ошибок валидации вызовом clearValidation
   function clearValidation (profileForm, validationConfig) {
-    // console.log('test')
-    // console.log(profileForm)
-    // console.log(validationConfig)
 //   // Находим все поля внутри формы
   const formElement = profileForm.querySelector(validationConfig.formSelector)
 //   // сделаем из них массив методом Array.from
@@ -111,7 +108,6 @@ function enableValidation (settings) {
   inputList.forEach((inputElement) => {
 //   // Находим элемент ошибки
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    // console.log(errorElement)
   inputElement.classList.remove(validationConfig.inputErrorClass);
 //   // Скрываем сообщение об ошибке
   errorElement.classList.remove(validationConfig.inputErrorActive);

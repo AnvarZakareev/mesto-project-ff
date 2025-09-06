@@ -102,12 +102,10 @@ function deleteConfirm (card, cardElement) {
   openModal(popupConfirm)
   const cardDeleteButton = popupConfirm.querySelector('.popup__button')
   cardDeleteButton.addEventListener("click", () => {
-    // console.log(card)
     deleteCardApi(card)
     .then ((res) => {
       closeModal(popupConfirm)
       deleteCard(cardElement)
-        // console.log(res)
       })
     .catch((err) => {
       console.log(err);
