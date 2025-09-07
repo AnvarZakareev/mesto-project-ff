@@ -10,20 +10,22 @@ const config = {
   }
 };
 
+const getResponseData = (res) => {
+    if (res.ok) {
+      return res.json() 
+    }
+      // если ошибка, отклоняем промис
+      return Promise.reject(`Ошибка: ${res.status}`);
+}
+
 // Загрузка информации о пользователе с сервера
 
 const getUser = () => {
   return fetch(`${config.baseUrl}/users/me`, {
       headers: config.headers
   })
-  .then(res => {
-    if (res.ok) {
-        return res.json() 
-    }
-      // если ошибка, отклоняем промис
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((result) => {
+  .then(getResponseData)
+  .then((result) => {
     return result
   });};
 
@@ -33,12 +35,7 @@ const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(getResponseData);
 };
 
 // Обновление аватара пользователя
@@ -50,12 +47,7 @@ const pathAvatar = (url) => {
     body: JSON.stringify({
       avatar: url})
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-});
+    .then(getResponseData);
 };
 
 // Редактирование профиля
@@ -68,12 +60,7 @@ const pathProfile = (name, about) => {
         name: name,
         about: about})
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-  });
+    .then(getResponseData);
 };
 
 // Добавление новой карточки
@@ -86,12 +73,7 @@ const pathCard = (name, link) => {
       name: name,
       link: link})
     })
-    .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+    .then(getResponseData);
 };
 
 // Удаление карточки
@@ -101,12 +83,7 @@ const deleteCardApi = (card) => {
     method: 'DELETE',
     headers: config.headers,
   })
-  .then(res => {
-    if (res.ok) {
-      return res;
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  .then(getResponseData);
 };
 
 // Постановка лайка
@@ -116,12 +93,7 @@ const putLikeCard = (card) => {
     method: 'PUT',
     headers: config.headers,
     })
-    .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+    .then(getResponseData);
 };
 
 // Cнятие лайка
@@ -131,10 +103,5 @@ const deleteLikeCard = (card) => {
     method: 'DELETE',
     headers: config.headers,
     })
-    .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+    .then(getResponseData);
 };
