@@ -25,7 +25,7 @@ function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard
     handleImageClick(card.link, card.alt, card.name);
   });
   const likeButton = cardElement.querySelector('.card__like-button');
-  fierstLike(card, userId, likeButton);
+  handleLikeButton(card, userId, likeButton);
   likeButton.addEventListener("click", () => {
     likeCard(card, likeButton, cardLikeQuantity);
   });
@@ -48,7 +48,7 @@ function isMyLike(card, userId) {
 
 // Проверка лайков при загрузке
 
-function fierstLike(card, userId, likeButton) {
+function handleLikeButton(card, userId, likeButton) {
   if (isMyLike(card, userId)) {
       likeButton.classList.add('card__like-button_is-active')
   };
