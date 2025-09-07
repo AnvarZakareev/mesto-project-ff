@@ -36,15 +36,19 @@ function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard
 // Проверка лайкнута ли карточка пользователем
 
 function isMyLike(card, userId) {
-  if (card.likes.find(like => like._id == userId)) 
-    {
-      return true;
-    }
-    else 
-      {
-      return false;
-    };
-};
+  return card.likes.some(like => like._id === userId);
+}
+
+// function isMyLike(card, userId) {
+//   if (card.likes.find(like => like._id == userId)) 
+//     {
+//       return true;
+//     }
+//     else 
+//       {
+//       return false;
+//     };
+// };
 
 // Проверка лайков при загрузке
 
