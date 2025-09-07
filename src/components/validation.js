@@ -1,5 +1,23 @@
 
-export {enableValidation, clearValidation};
+export {enableValidation, clearValidation, validationConfig, buttonText};
+
+
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  inputErrorActive: 'popup__input-error_active',
+};
+
+const buttonText = {
+  save: 'Сохранить',
+  saving: 'Сохранение...',
+  yes: 'Да',
+  create: 'Создать',
+}
+
 
     // --------------
     // Валидация форм
@@ -105,17 +123,9 @@ function setEventListeners (formElement, settings) {
 //Функция enableValidation найдёт на странице и обработает все формы с классом form.
 
 function enableValidation (settings) {
-const {
-  formSelector, //'.popup__form'
-  inputSelector, //'.popup__input'
-  submitButtonSelector, //'.popup__button'
-  inactiveButtonClass, //'popup__button_disabled'
-  inputErrorClass, // 'popup__input_type_error'
-  inputErrorActive, // 'popup__input-error_active'
-  // errorClass: 'popup__error_visible'
-} = settings
+settings = validationConfig
 // Найдём все формы с указанным классом в DOM, сделаем из них массив методом Array.from
-const formList = Array.from(document.querySelectorAll(formSelector));
+const formList = Array.from(document.querySelectorAll(settings.formSelector));
 // Переберём полученную коллекцию
 formList.forEach((formElement) => {
   // Для каждой формы вызовем функцию setEventListeners, передав ей элемент формы
@@ -137,3 +147,4 @@ function clearValidation (profileForm, settings) {
   const buttonElement = profileForm.querySelector(settings.submitButtonSelector)
   disableSubmitButton (buttonElement, settings)
 };
+

@@ -22,7 +22,7 @@
 import './pages/index.css';
 import {createCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
-import {enableValidation, clearValidation} from './components/validation.js';
+import {enableValidation, clearValidation, validationConfig} from './components/validation.js';
 import {getUser, getInitialCards, pathProfile, pathCard, pathAvatar} from './components/api.js';
 
 
@@ -88,6 +88,19 @@ function handleImageClick(link, alt, name) {
     // ---------------------
 
     
+const settings = {
+  save: 'Сохранить',
+  saving: 'Сохранение...',
+  yes: 'Да',
+  create: 'Создать',
+}
+
+// Во время отправки запроса на сервер меняется текст кнопки
+
+function uxSavingButton (popupForm, text) {
+  popupForm.querySelector('.popup__button').textContent = text;
+};
+
 // Обновление аватара пользователя
     
 function editAvatar (evt){
@@ -103,7 +116,8 @@ function editAvatar (evt){
   .catch((err) => {
     console.log(err);
   })
-  .finally(uxSavingButton (popupForm, settings.save))
+  .finally(function(){
+  uxSavingButton (popupForm, settings.save)});
 };
 
 popupAvatar.addEventListener('submit', editAvatar)
@@ -129,7 +143,8 @@ function addCard(evt) {
   .catch((err) => {
     console.log(err);
   })
-  .finally(uxSavingButton (popupForm, settings.create));
+  .finally(function(){
+  uxSavingButton (popupForm, settings.save)});
 };
 
 formAddCard.addEventListener('submit', addCard);
@@ -143,7 +158,6 @@ function submitFormEdiProfile(evt) {
   const popupForm = document.forms.profile;
   const name = popupForm.elements.name.value;
   const description = popupForm.elements.description.value;
-  console.log(1)
   uxSavingButton (popupForm, settings.saving);
   pathProfile(name, description)
   .then ((res) => {
@@ -154,7 +168,8 @@ function submitFormEdiProfile(evt) {
   .catch((err) => {
     console.log(err);
   })
-  .finally(uxSavingButton (popupForm, settings.save));
+  .finally(function(){
+  uxSavingButton (popupForm, settings.save)});
 };
 
 formEdiProfile.addEventListener('submit', submitFormEdiProfile);
@@ -172,38 +187,9 @@ function cleanInput(popup) {
   });
 };
 
-// Во время отправки запроса на сервер меняется текст кнопки
-
-function uxSavingButton (popupForm, text) {
-  popupForm.querySelector('.popup__button').textContent = text;
-};
-
 // Настройки валидации
 
-enableValidation(
-  {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  inputErrorActive: 'popup__input-error_active',
-});
-
-const validationConfig ={
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  inputErrorClass: 'popup__input_type_error',
-  inputErrorActive: 'popup__input-error_active',
-  submitButtonSelector: '.popup__button',
-};
-
-const settings = {
-  save: 'Сохранить',
-  saving: 'Сохранение...',
-  yes: 'Да',
-  create: 'Создать',
-}
+enableValidation(validationConfig);
       
 // Создаём массив с промисами
 // Загрузка информации о пользователе с сервера
@@ -220,5 +206,7 @@ Promise.all(getAll)
     result[1].forEach((cardData) => {
       const cardElement = createCard(cardData, handleImageClick, userId);
       placesList.append(cardElement);
-    })
-});
+    });
+  })
+  .catch((error) => 
+  console.error(error));
