@@ -94,16 +94,16 @@ function editAvatar (evt){
   evt.preventDefault();
   const popupForm = document.forms.avatar;
   const url = popupForm.elements.avatar.value;
-  uxSavingButton (popupForm);
+  uxSavingButton (popupForm, settings.saving);
   pathAvatar(url)
   .then((res) => {
     profileAvatar.style.backgroundImage = `url(${res.avatar})`;
     closeModal(popupAvatar);
-    uxSavingButton (popupForm);
   })
   .catch((err) => {
     console.log(err);
-  });
+  })
+  .finally(uxSavingButton (popupForm, settings.save))
 };
 
 popupAvatar.addEventListener('submit', editAvatar)
@@ -118,18 +118,18 @@ function addCard(evt) {
   const newCard = {};
   newCard.name = name.value;
   newCard.link = link.value;
-  uxSavingButton (popupForm);
+  uxSavingButton (popupForm, settings.saving);
   pathCard(name.value, link.value)
   .then ((res) => {
     const cardElement = createCard(res, handleImageClick);
     placesList.prepend(cardElement);
     popupForm.reset();
     closeModal(formAddCard);
-    uxSavingButton (popupForm);
   })
   .catch((err) => {
     console.log(err);
-  });
+  })
+  .finally(uxSavingButton (popupForm, settings.create));
 };
 
 formAddCard.addEventListener('submit', addCard);
@@ -137,22 +137,24 @@ formAddCard.addEventListener('submit', addCard);
 // Редактирование имени и информации о себе
 
 const formEdiProfile = document.querySelector('[name="profile"]');
+
 function submitFormEdiProfile(evt) {
   evt.preventDefault();
   const popupForm = document.forms.profile;
   const name = popupForm.elements.name.value;
   const description = popupForm.elements.description.value;
-  uxSavingButton (popupForm);
+  console.log(1)
+  uxSavingButton (popupForm, settings.saving);
   pathProfile(name, description)
   .then ((res) => {
     profileTitle.textContent = name;
     profileDescription.textContent = description;
     closeModal(formEdiProfile.parentNode.parentNode);
-    uxSavingButton (popupForm);
   })
   .catch((err) => {
     console.log(err);
-  });
+  })
+  .finally(uxSavingButton (popupForm, settings.save));
 };
 
 formEdiProfile.addEventListener('submit', submitFormEdiProfile);
@@ -172,14 +174,9 @@ function cleanInput(popup) {
 
 // Во время отправки запроса на сервер меняется текст кнопки
 
-function uxSavingButton (popupForm) {
-  const text = popupForm.querySelector('.popup__button').textContent;
-  if (text == 'Сохранить') {
-    popupForm.querySelector('.popup__button').textContent = 'Сохранение...';
-  }
-  else {
-    popupForm.querySelector('.popup__button').textContent = 'Сохранить';
-}};
+function uxSavingButton (popupForm, text) {
+  popupForm.querySelector('.popup__button').textContent = text;
+};
 
 // Настройки валидации
 
@@ -200,6 +197,13 @@ const validationConfig ={
   inputErrorActive: 'popup__input-error_active',
   submitButtonSelector: '.popup__button',
 };
+
+const settings = {
+  save: 'Сохранить',
+  saving: 'Сохранение...',
+  yes: 'Да',
+  create: 'Создать',
+}
       
 // Создаём массив с промисами
 // Загрузка информации о пользователе с сервера
