@@ -1,5 +1,5 @@
+export {enableValidation, clearValidation, validationConfig};
 
-export {enableValidation, clearValidation, validationConfig, buttonText};
 
 
 const validationConfig = {
@@ -10,14 +10,6 @@ const validationConfig = {
   inputErrorClass: 'popup__input_type_error',
   inputErrorActive: 'popup__input-error_active',
 };
-
-const buttonText = {
-  save: 'Сохранить',
-  saving: 'Сохранение...',
-  yes: 'Да',
-  create: 'Создать',
-}
-
 
     // --------------
     // Валидация форм

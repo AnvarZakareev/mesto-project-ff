@@ -3,8 +3,6 @@ import {deleteConfirm } from "../index";
 import {putLikeCard, deleteLikeCard} from "./api";
 
 const cardTemplate = document.querySelector('#card-template');
-const popupConfirm = document.querySelector('.popup__confirm');
-
 
 // Создание карточки
 
@@ -47,7 +45,7 @@ function checkleLikeButton(card, userId, likeButton) {
   };
 };
 
-// постановка снятие лайка и счетчик лайков
+// Постановка снятие лайка и счетчик лайков
 
 function likeCard(card, likeButton, cardLikeQuantity)
 {

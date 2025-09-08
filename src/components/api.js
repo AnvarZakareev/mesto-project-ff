@@ -1,6 +1,10 @@
 export {getUser, getInitialCards, pathProfile, pathCard, deleteCardApi, putLikeCard, deleteLikeCard, pathAvatar};
 
-// Все запросы присвойте переменным
+        // ---------
+        // Помошники
+        // ---------
+
+// Конфигурации запросов
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/wff-cohort-41',
@@ -10,6 +14,8 @@ const config = {
   }
 };
 
+// Метод для переиспользования одинаковой логики
+
 const getResponseData = (res) => {
     if (res.ok) {
       return res.json() 
@@ -17,6 +23,10 @@ const getResponseData = (res) => {
       // если ошибка, отклоняем промис
       return Promise.reject(`Ошибка: ${res.status}`);
 }
+
+        // -----------------
+        // Запросы к серверу
+        // -----------------
 
 // Загрузка информации о пользователе с сервера
 

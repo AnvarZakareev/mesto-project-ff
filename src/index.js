@@ -1,22 +1,3 @@
-//В файле index.js должны остаться:
-// 1 объявления и инициализация глобальных констант и
-// переменных с DOM-элементами страницы;
-// 2 обработчики событий (при открытии и закрытии попапов;
-// при отправке форм; обработчик, открывающий попап при
-// клике по изображению карточки);
-// 3 вызовы других функций, подключённых из созданных модулей,
-// которым нужно будет передавать объявленные здесь переменные
-// и обработчики.
-
-// Код модулей должен быть написан так, чтобы их можно было
-// забрать из проекта и перенести в другой без необходимости
-// что-то менять внутри. Подумайте, какие настройки для этого
-// нужно передать аргументами.
-// Чтобы было чуточку понятнее: вызов функции создания
-// карточки должен находиться в файле index.js, но само
-// объявление функции — в card.js. Используйте директивы
-// export/import.
-
 // Импорт
 
 export {deleteConfirm}
@@ -27,8 +8,7 @@ import {enableValidation, clearValidation, validationConfig} from './components/
 import {getUser, getInitialCards, pathProfile, pathCard, pathAvatar, deleteCardApi} from './components/api.js';
 
 
-// Oбъявления и инициализация глобальных констант и
-// переменных с DOM-элементами страницы
+// Oбъявления и инициализация глобальных констант ипеременных с DOM-элементами страницы
 
 const placesList = document.querySelector('.places__list');
 const profileEdit = document.querySelector('.profile__edit-button');
@@ -43,14 +23,28 @@ const popupAvatar = document.querySelector('.popup_type_avatar');
 const popupName = document.querySelector('.popup__input_type_name');
 const popupDescription = document.querySelector('.popup__input_type_description');
 const popupConfirm = document.querySelector('.popup__confirm');
+
+
+          // ---------------------------------------------------------
+          // Во время отправки запроса на сервер меняется текст кнопки
+          // ---------------------------------------------------------
+
+// Варианты текста
+
 const settings = {
   save: 'Сохранить',
   saving: 'Сохранение...',
   yes: 'Да',
   create: 'Создать',
-}
+};
 
- 
+// Функция изменения текста
+
+function uxSavingButton (popupForm, text) {
+  popupForm.querySelector('.popup__button').textContent = text;
+};
+
+
     // ---------------------  
     // открытие окон попапов
     // ---------------------
@@ -91,16 +85,10 @@ function handleImageClick(link, alt, name) {
   openModal(popupImage);
 };
 
-    // -------------------
-    // Открытие окон Popup
-    // -------------------
 
-
-// Во время отправки запроса на сервер меняется текст кнопки
-
-function uxSavingButton (popupForm, text) {
-  popupForm.querySelector('.popup__button').textContent = text;
-};
+              // -------------------
+              // Логика окон попапов
+              // -------------------
 
 // Обновление аватара пользователя
     
@@ -121,7 +109,7 @@ function editAvatar (evt){
   uxSavingButton (popupForm, settings.save)});
 };
 
-popupAvatar.addEventListener('submit', editAvatar)
+popupAvatar.addEventListener('submit', editAvatar);
 
 // Добавление карточки
 
@@ -181,7 +169,7 @@ function deleteConfirm (card, cardElement) {
   openModal(popupConfirm);
   const cardDeleteButton = popupConfirm.querySelector('.popup__button');
   cardDeleteButton.addEventListener("click", () => {
-    uxSavingButton(popupConfirm, settings.saving)
+    uxSavingButton(popupConfirm, settings.saving);
     deleteCardApi(card)
     .then ((res) => {
       closeModal(popupConfirm);
@@ -191,14 +179,15 @@ function deleteConfirm (card, cardElement) {
       console.log(err);
     })
     .finally(function(){
-      uxSavingButton(popupConfirm, settings.yes)
-    })
-  })
-}
+      uxSavingButton(popupConfirm, settings.yes);
+    });
+  });
+};
 
-    //  ------
-    //  Прочее
-    //  ------
+
+                //  ------
+                //  Прочее
+                //  -------
 
 // отчистка поля ввода
 
@@ -213,13 +202,16 @@ function cleanInput(popup) {
 
 enableValidation(validationConfig);
       
+// хранится ID пользователя для отображения значка карзины в созданной карточке
+
+let userId;
+
 // Создаём массив с промисами
 // Загрузка информации о пользователе с сервера
 // Загрузка карточек с сервера
 
 const getAll = [getUser(), getInitialCards()];
 
-let userId
 
 Promise.all(getAll)
   .then((result) => {
@@ -234,4 +226,5 @@ Promise.all(getAll)
     userId = user_Id
   })
   .catch((error) => 
-  console.error(error));
+    console.error(error)
+);
