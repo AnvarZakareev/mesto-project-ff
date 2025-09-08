@@ -19,11 +19,12 @@
 
 // Импорт
 
+export {deleteConfirm}
 import './pages/index.css';
-import {createCard} from './components/card.js';
+import {createCard, deleteCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
 import {enableValidation, clearValidation, validationConfig} from './components/validation.js';
-import {getUser, getInitialCards, pathProfile, pathCard, pathAvatar} from './components/api.js';
+import {getUser, getInitialCards, pathProfile, pathCard, pathAvatar, deleteCardApi} from './components/api.js';
 
 
 // Oбъявления и инициализация глобальных констант и
@@ -41,6 +42,13 @@ const profileAvatar = document.querySelector('.profile__image');
 const popupAvatar = document.querySelector('.popup_type_avatar');
 const popupName = document.querySelector('.popup__input_type_name');
 const popupDescription = document.querySelector('.popup__input_type_description');
+const popupConfirm = document.querySelector('.popup__confirm');
+const settings = {
+  save: 'Сохранить',
+  saving: 'Сохранение...',
+  yes: 'Да',
+  create: 'Создать',
+}
 
  
     // ---------------------  
@@ -83,17 +91,10 @@ function handleImageClick(link, alt, name) {
   openModal(popupImage);
 };
 
-    // ---------------------
-    // Изменения на странице
-    // ---------------------
+    // -------------------
+    // Открытие окон Popup
+    // -------------------
 
-    
-const settings = {
-  save: 'Сохранить',
-  saving: 'Сохранение...',
-  yes: 'Да',
-  create: 'Создать',
-}
 
 // Во время отправки запроса на сервер меняется текст кнопки
 
@@ -135,7 +136,7 @@ function addCard(evt) {
   uxSavingButton (popupForm, settings.saving);
   pathCard(name.value, link.value)
   .then ((res) => {
-    const cardElement = createCard(res, handleImageClick);
+    const cardElement = createCard(res, handleImageClick, userId);
     placesList.prepend(cardElement);
     popupForm.reset();
     closeModal(formAddCard);
@@ -174,6 +175,27 @@ function submitFormEdiProfile(evt) {
 
 formEdiProfile.addEventListener('submit', submitFormEdiProfile);
 
+// Подтверждение удаления
+
+function deleteConfirm (card, cardElement) {
+  openModal(popupConfirm);
+  const cardDeleteButton = popupConfirm.querySelector('.popup__button');
+  cardDeleteButton.addEventListener("click", () => {
+    uxSavingButton(popupConfirm, settings.saving)
+    deleteCardApi(card)
+    .then ((res) => {
+      closeModal(popupConfirm);
+      deleteCard(cardElement);
+      })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(function(){
+      uxSavingButton(popupConfirm, settings.yes)
+    })
+  })
+}
+
     //  ------
     //  Прочее
     //  ------
@@ -197,16 +219,19 @@ enableValidation(validationConfig);
 
 const getAll = [getUser(), getInitialCards()];
 
+let userId
+
 Promise.all(getAll)
   .then((result) => {
     profileTitle.textContent = result[0].name;
     profileDescription.textContent = result[0].about;
     profileAvatar.style.backgroundImage = `url(${result[0].avatar})`;
-    const userId = result[0]._id;
+    const user_Id = result[0]._id;
     result[1].forEach((cardData) => {
-      const cardElement = createCard(cardData, handleImageClick, userId);
+      const cardElement = createCard(cardData, handleImageClick, user_Id);
       placesList.append(cardElement);
     });
+    userId = user_Id
   })
   .catch((error) => 
   console.error(error));

@@ -1,6 +1,6 @@
-export {createCard};
-import {openModal, closeModal } from "./modal";
-import {deleteCardApi, putLikeCard, deleteLikeCard} from "./api";
+export {createCard, deleteCard};
+import {deleteConfirm } from "../index";
+import {putLikeCard, deleteLikeCard} from "./api";
 
 const cardTemplate = document.querySelector('#card-template');
 const popupConfirm = document.querySelector('.popup__confirm');
@@ -8,7 +8,7 @@ const popupConfirm = document.querySelector('.popup__confirm');
 
 // Создание карточки
 
-function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard) { 
+function createCard (card, handleImageClick, userId) { 
   const cardTemplateContent = cardTemplate.content;
   const cardElement = cardTemplateContent.querySelector('.places__item').cloneNode(true);
   let cardLikeQuantity = cardElement.querySelector('.card__like-quantity');
@@ -78,47 +78,19 @@ function likeCard(card, likeButton, cardLikeQuantity)
 
 // Корзина на карточке тоько для создателя
 
-function myBasket (userId, card, cardDeleteButton, cardElement) {
-  if (userId == card.owner._id) {
+function myBasket (userId = false, card, cardDeleteButton, cardElement) {
+  if (userId !== card.owner._id) {
+    cardDeleteButton.style.display = 'none';
+  }
+  else {
     cardDeleteButton.addEventListener("click", () => {
       deleteConfirm(card, cardElement)
     });
-  }
-  else {
-    cardDeleteButton.style.display = 'none';
   };
 };
-
-// Подтверждение удаления
-
-function deleteConfirm (card, cardElement) {
-  openModal(popupConfirm);
-  const cardDeleteButton = popupConfirm.querySelector('.popup__button');
-  cardDeleteButton.addEventListener("click", () => {
-    deleteCardApi(card)
-    .then ((res) => {
-      closeModal(popupConfirm);
-      deleteCard(cardElement);
-      })
-    .catch((err) => {
-      console.log(err);
-    })
-  })
-  // cardDeleteButton.addEventListener("click", () => {
-  // })
-}
 
 // Удаление со страницы
 
 function deleteCard(evt) {
   evt.remove();
 };
-
-
-// Если лайкнуть карточку, сердечко поменяет цвет
-// Обратите внимание что функцию обработчика лайка 
-// putLikeCard deleteLikeCard
-// нужно передать в функцию создания карточки как аргумент.
-// Это понадобится в будущем для интеграции с API.
-
-
