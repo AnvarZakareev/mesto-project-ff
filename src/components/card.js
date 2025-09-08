@@ -25,7 +25,7 @@ function createCard (card, handleImageClick, userId, putLikeCard, deleteLikeCard
     handleImageClick(card.link, card.alt, card.name);
   });
   const likeButton = cardElement.querySelector('.card__like-button');
-  handleLikeButton(card, userId, likeButton);
+  checkleLikeButton(card, userId, likeButton);
   likeButton.addEventListener("click", () => {
     likeCard(card, likeButton, cardLikeQuantity);
   });
@@ -39,20 +39,9 @@ function isMyLike(card, userId) {
   return card.likes.some(like => like._id === userId);
 }
 
-// function isMyLike(card, userId) {
-//   if (card.likes.find(like => like._id == userId)) 
-//     {
-//       return true;
-//     }
-//     else 
-//       {
-//       return false;
-//     };
-// };
-
 // Проверка лайков при загрузке
 
-function handleLikeButton(card, userId, likeButton) {
+function checkleLikeButton(card, userId, likeButton) {
   if (isMyLike(card, userId)) {
       likeButton.classList.add('card__like-button_is-active')
   };
